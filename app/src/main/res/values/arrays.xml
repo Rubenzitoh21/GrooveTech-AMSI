@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">GrooveTech</string>
+    <string name="txt_password">Introduza a Password</string>
+    <string name="txt_email">Introduza o Email</string>
+    <string name="txt_login">Login</string>
+    <string name="livro_estatico">Livro Estático</string>
+    <string name="livro_dinamico">Livro Dinâmico</string>
+    <string name="email">Email</string>
+    <string name="ndOpen">open</string>
+    <string name="ndClose">close</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="et_titulo">Título</string>
+    <string name="menuSearch">Pesquisar</string>
+    <string name="menuRemover">Remover</string>
+    <string name="text_utilizador">Não és um utilizador?</string>
+    <string name="text_sign_up">Sign up</string>
+    <string name="txt_perfil_nome">Ruben Amaral</string>
+    <string name="selected">Selecione o seu género</string>
+    <string name="delete_button_text">Eliminar\n</string>
+    <string name="btn_adicionar_carrinho">Adicionar ao Carrinho</string>
+    <string name="carrinho_text">Carrinho</string>
+    <string name="btn_finalizar_encomenda">Finalizar</string>
+    <string name="txt_sumario_encomenda">Sumário</string>
+    <string name="subtotal">Subtotal</string>
+
+</resources>
