@@ -6,7 +6,7 @@
     android:icon="@drawable/home_icon_bottom_bar" />
     <item
         android:id="@+id/carrinho"
-        android:title="Carrinhos"
+        android:title="Carrinho"
         android:icon="@drawable/cart_icon_bottom_bar" />
     <item
         android:id="@+id/perfil"

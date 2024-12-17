@@ -1,6 +1,8 @@
 package com.example.groovetech;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -31,11 +33,14 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Inicialização do View Binding
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        Singleton.getInstance(this).setLoginListener(this);
+        // Verificar se o utilizador já tem token guardado
+        if (HasUserToken(this)) {
+            redirectToMainActivity();
+        } else {
+            // Inicialização do View Binding
+            binding = ActivityLoginBinding.inflate(getLayoutInflater());
+            setContentView(binding.getRoot());
+        }
 
 
     }
@@ -66,22 +71,34 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
             return;
         }
 
-        Singleton.getInstance(this).loginAPI(username, pass, getApplicationContext());
+        Singleton.getInstance(this).loginAPI(username, pass, getApplicationContext(), this);
     }
 
     @Override
     public void onUpdateLogin(Utilizador utilizador) {
-        if(utilizador.getAuth_key() != null) {
+
+        if (utilizador.getAuth_key() != null) {
+            Toast.makeText(this, "Login efetuado com sucesso" + utilizador.getUsername(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra(TOKEN, utilizador.getAuth_key());
             intent.putExtra(USERNAME, utilizador.getUsername());
 
             startActivity(intent);
             //finish();
-        }
-        else {
+        } else {
             Toast.makeText(this, "Token incorreto", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public boolean HasUserToken(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        return preferences.getString("user_token", null) != null;
+    }
+
+    private void redirectToMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish(); // não permite que o utilizador volte para a activity anterior
     }
 
 }

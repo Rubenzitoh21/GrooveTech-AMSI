@@ -13,10 +13,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.groovetech.Modelo.Singleton;
 import com.example.groovetech.Modelo.Utilizador;
 import com.example.groovetech.databinding.ActivitySignupBinding;
+import com.example.groovetech.listeners.SignupListener;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity implements SignupListener {
 
     public static final String TOKEN = "token";
     public static final String USERNAME = "username";
@@ -36,13 +38,16 @@ public class SignupActivity extends AppCompatActivity {
     private boolean isUsernameValido(String username) {
         return !TextUtils.isEmpty(username) && username.matches("^[a-zA-Z0-9_]{3,20}$");
     }
+
     private boolean isEmailValido(String email) {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
+
     private boolean isPasswordValida(String pass) {
         return !TextUtils.isEmpty(pass) && pass.length() >= MIN_PASS;
     }
-    public void onSignupButtonClick(View view) {
+
+    public void onClickSignup(View view) {
         String username = binding.etUsername.getText().toString();
         String email = binding.etEmail.getText().toString();
         String password = binding.etPassword.getText().toString();
@@ -59,14 +64,18 @@ public class SignupActivity extends AppCompatActivity {
             binding.etPassword.setError("Password inválida");
             return;
         }
-        // SingletonProdutos.getInstance(this).signup(username, email, password);
+        Singleton.getInstance(this).signupAPI(username, email, password, getApplicationContext(),this);
     }
+
     public void onLoginButtonClick(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
+    // Método que é chamado quando o registo é feito com a API
     public void onUpdateSignup(Utilizador user) {
         if (user != null) {
+            Toast.makeText(this, "Registo com sucesso" + user.getUsername(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra(TOKEN, user.getAuth_key());
             String username = binding.etUsername.getText().toString();
