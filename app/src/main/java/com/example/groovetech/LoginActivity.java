@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     public void onUpdateLogin(Utilizador utilizador) {
 
         if (utilizador.getAuth_key() != null) {
-            Toast.makeText(this, "Login efetuado com sucesso" + utilizador.getUsername(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Login efetuado com sucesso " + utilizador.getUsername(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra(TOKEN, utilizador.getAuth_key());
             intent.putExtra(USERNAME, utilizador.getUsername());
@@ -100,5 +100,16 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         startActivity(intent);
         finish(); // não permite que o utilizador volte para a activity anterior
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        // Limpa os campos de texto quando a activity é retomada
+        if (binding.etUsername != null) {
+            binding.etUsername.setText(""); // Clear the username field
+        }
+        if (binding.etPassword != null) {
+            binding.etPassword.setText(""); // Clear the password field
+        }
+    }
 }

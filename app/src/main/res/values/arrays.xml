@@ -3,8 +3,6 @@
     <string name="txt_password">Introduza a Password</string>
     <string name="txt_email">Introduza o Email</string>
     <string name="txt_login">Login</string>
-    <string name="livro_estatico">Livro Estático</string>
-    <string name="livro_dinamico">Livro Dinâmico</string>
     <string name="email">Email</string>
     <string name="ndOpen">open</string>
     <string name="ndClose">close</string>
