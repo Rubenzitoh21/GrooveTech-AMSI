@@ -8,14 +8,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.groovetech.Modelo.Produto;
+import com.example.groovetech.Modelo.Singleton;
+import com.example.groovetech.adaptadores.HomeProdutosAdaptador;
 import com.example.groovetech.databinding.FragmentPaginaInicialBinding;
+import com.example.groovetech.listeners.HomeProdutosListener;
+import com.example.groovetech.utils.GridSpacingItemDecoration;
 
-public class PaginaInicialFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class PaginaInicialFragment extends Fragment implements HomeProdutosListener {
 
     private FragmentPaginaInicialBinding binding;
     private SharedPreferences preferences;
@@ -32,6 +43,10 @@ public class PaginaInicialFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Vai buscar a lista de produtos à API
+        Singleton.getInstance(getContext()).getAllProdutosAPI(requireContext().getApplicationContext(), this);
+
 
         String username = getUsername();
         if (username == null) {
@@ -54,24 +69,34 @@ public class PaginaInicialFragment extends Fragment {
 
     // Exibe um diálogo de confirmação para o logout
     public void showLogoutDialog(View view) {
-        new AlertDialog.Builder(requireContext())
-                .setMessage("Tem certeza que deseja sair?")
-                .setCancelable(false) // Impede o fechamento do diálogo ao tocar fora dele
+        new AlertDialog.Builder(requireContext()).setMessage("Tem certeza que deseja sair?").setCancelable(false) // Impede o fechamento do diálogo ao tocar fora dele
                 .setPositiveButton("Sim", (dialog, id) -> {
-                    // O utilizador confirmou o logout
                     logout();
-                })
-                .setNegativeButton("Cancelar", (dialog, id) -> {
-                    // O utilizador cancelou o logout
+                }).setNegativeButton("Cancelar", (dialog, id) -> {
                     dialog.dismiss();
-                })
-                .create()
-                .show();
+                }).create().show();
     }
 
     private void logout() {
         preferences.edit().clear().apply();
         //Termina a atividade atual
         requireActivity().finish();
+    }
+
+    @Override
+    public void onRefreshHomeProdutos(ArrayList<Produto> listaProdutos) {
+
+        // Configuração do layout da recyclerview
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        binding.HomeProdutosRV.setLayoutManager(gridLayoutManager);
+
+        // Cria o adaptador com a lista limitada
+        HomeProdutosAdaptador adapter = new HomeProdutosAdaptador(getContext(), listaProdutos);
+
+        // Define o adaptador para o RecyclerView
+        binding.HomeProdutosRV.setAdapter(adapter);
+
+        // Oculta a barra de progresso
+        binding.progressBarHomeProdutos.setVisibility(View.GONE);
     }
 }

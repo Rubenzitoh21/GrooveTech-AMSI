@@ -57,6 +57,8 @@ public class Produto implements Parcelable {
         return imagem;
     }
 
+    //get all produtos
+
     @Override
     public String toString() {
         return "Produto{" +

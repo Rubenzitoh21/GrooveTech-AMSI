@@ -7,4 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".CarrinhoActivity">
 
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="12dp"
+        android:padding="10dp"
+        android:elevation="10dp"
+        android:src="@drawable/arrow_back"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

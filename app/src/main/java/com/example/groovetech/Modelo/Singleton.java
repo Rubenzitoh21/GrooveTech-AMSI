@@ -11,12 +11,16 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.groovetech.listeners.HomeProdutosListener;
 import com.example.groovetech.listeners.LoginListener;
 import com.example.groovetech.listeners.SignupListener;
 import com.example.groovetech.utils.LoginJsonParser;
+import com.example.groovetech.utils.ProdutoJsonParser;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -27,6 +31,8 @@ public class Singleton {
     private static RequestQueue volleyQueue = null;
 
     private Utilizador utilizador;
+
+    private ArrayList<Produto> listaProdutos = new ArrayList<>();
 
 
     public Singleton(Context context) {
@@ -138,6 +144,40 @@ public class Singleton {
 
     }
 
+    public void getAllProdutosAPI(Context context, final HomeProdutosListener produtosListener) {
+        if (!isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_SHORT).show();
+
+            if(produtosListener != null){
+                produtosListener.onRefreshHomeProdutos(listaProdutos);
+            }
+        } else {
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, UrlAPIProdutos(), null, new Response.Listener<JSONArray>() {
+
+                @Override
+                public void onResponse(JSONArray response) {
+                    Log.d("ProdutosAPI", "Raw Response: " + response.toString());
+                    listaProdutos = ProdutoJsonParser.parserJsonProdutos(response);
+
+                    // Notificar o listener que a lista de produtos foi atualizada
+                    if (produtosListener != null) {
+                        produtosListener.onRefreshHomeProdutos(listaProdutos);
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, "Dados Incorretos", Toast.LENGTH_SHORT).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
+    }
+
+    public ArrayList<Produto> getListaProdutos() {
+        return listaProdutos;
+    }
 
     public static boolean isConnectionInternet(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -147,6 +187,10 @@ public class Singleton {
 
     private String UrlAPILogin() {
         return "http://172.22.21.211:8080/api/auth/login";
+    }
+
+    private String UrlAPIProdutos() {
+        return "http://172.22.21.211:8080/api/produto/all";
     }
 
     private String UrlAPISignup() {
