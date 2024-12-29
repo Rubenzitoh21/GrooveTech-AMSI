@@ -40,6 +40,8 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
             // Inicialização do View Binding
             binding = ActivityLoginBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
+
+            binding.apiSettingsBtn.setOnClickListener(this::redirectToDefinicoesActivity);
         }
 
 
@@ -84,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
             intent.putExtra(USERNAME, utilizador.getUsername());
 
             startActivity(intent);
-            //finish();
+            finish();
         } else {
             Toast.makeText(this, "Token incorreto", Toast.LENGTH_SHORT).show();
         }
@@ -100,6 +102,12 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         startActivity(intent);
         finish(); // não permite que o utilizador volte para a activity anterior
     }
+
+    public void redirectToDefinicoesActivity(View view) {
+        Intent intent = new Intent(this, DefinicoesActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();

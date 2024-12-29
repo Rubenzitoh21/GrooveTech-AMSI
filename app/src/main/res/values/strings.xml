@@ -8,8 +8,8 @@
     <string name="txt_metodo_de_envio">Metodo de Envio:</string>
     <string name="txt_metodo_de_pagamento">Metodo de Pagamento:</string>
     <string name="txt_efetuar_encomenda">Efetuar Encomenda</string>
-    <string name="txt_api_url">API URL</string>
-    <string name="txt_ip_api">192.168.1.115</string>
+    <string name="txt_api_setup">Setup</string>
+    <string name="txt_ip_api">172.22.21.211:8080</string>
     <string name="txt_confirmar">Confirmar</string>
     <string name="txt_title">Title</string>
     <string name="txt_40">40€</string>
@@ -27,6 +27,7 @@
     <string name="txt_intro_login">Login</string>
     <string name="txt_faturas">Faturas</string>
     <string name="txt_groove">GrooveTech</string>
+    <string name="txt_api_ip">IP</string>
     <string name="txt_app">App</string>
     <string name="txt_kaka">kaka</string>
     <string name="txt_password_login">123123123</string>
@@ -44,7 +45,8 @@
     <string name="txt_favoritos">Favoritos</string>
     <string name="txt_username_home_page">Username</string>
     <string name="txt_bem_vindo">Bem-vindo</string>
-    <string name="txt_loja">Loja</string>
+    <string name="txt_titulo_home">Loja</string>
+    <string name="txt_mensagem_pesquisa">Resultados para &quot;%1$s&quot;</string>
     <string name="txt_ver_todos">Ver Todos</string>
     <string name="txt_perfil_username">Username</string>
     <string name="txt_perfil_primeiro_nome">Primeiro Nome</string>

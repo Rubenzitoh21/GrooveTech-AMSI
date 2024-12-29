@@ -34,6 +34,11 @@ public class HomeProdutosAdaptador extends RecyclerView.Adapter<HomeProdutosAdap
         this.produtos = produtos;
         this.context = context;
     }
+    // Método que atualiza a lista de produtos
+    public void updateProdutos(ArrayList<Produto> newListaProdutos) {
+        this.produtos = newListaProdutos;
+        notifyDataSetChanged(); // Notify the adapter to refresh the RecyclerView
+    }
 
     @NonNull
     @Override
