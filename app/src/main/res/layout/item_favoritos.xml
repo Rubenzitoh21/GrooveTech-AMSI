@@ -1,6 +1,6 @@
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -18,10 +18,10 @@
 
         <ImageView
             android:id="@+id/pic"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="111dp"
             android:layout_margin="10dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.842"
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/txt_produtonome_title"
+            android:text="@string/txt_produto_title"
             android:textColor="@color/text_color"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -48,15 +48,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/txt_valorproduto"
+            android:text="@string/txt_detalheproduto_valor"
             android:textColor="@color/red"
             android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/pic"
             app:layout_constraintTop_toBottomOf="@+id/nomeTxt" />
 
-        <!-- Star Icon -->
+
+
+        <ImageView
+            android:id="@+id/favoritosBtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/favorite_fill"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Rating TextView -->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -213,19 +213,27 @@ public class Singleton {
             public void onErrorResponse(VolleyError error) {
                 String errorMessage = "Resultados para \"" + query + "\" não encontrados.";
 
-                // Atualizar o UI usando o contexto
+                /**
+                 * Atualizar o UI usando o contexto
+                 */
                 if (context instanceof AppCompatActivity) {
-                    // O 'context' pode ser de vários tipos (por exemplo, Activity, fragment, etc...),
-                    // que é uma classe usada em atividades que oferecem suporte a fragmentos e outros componentes da UI.
+
+                    /**
+                     * O 'context' pode ser de vários tipos (por exemplo, Activity, fragment, etc...),
+                     * que é uma classe usada em atividades que oferecem suporte a fragmentos e outros componentes da UI.
+                     */
                     AppCompatActivity activity = (AppCompatActivity) context;
 
-                    // Usar 'getSupportFragmentManager()' se for uma AppCompatActivity.
-                    // Uma 'AppCompatActivity' possui o método 'getSupportFragmentManager()',
-                    // que é responsável por manipular os fragmentos dentro da atividade.
-                    // Neste caso, usamos a tag associada à classe 'PaginaInicialFragment'.
+                    /**
+                     * Usar 'getSupportFragmentManager()' se for uma AppCompatActivity.
+                     * Uma 'AppCompatActivity' possui o método 'getSupportFragmentManager()',
+                     * que é responsável por manipular os fragmentos dentro da atividade.
+                     * Neste caso, usámos a tag associada à classe 'PaginaInicialFragment'.
+                     */
                     Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.fragment_pagina_inicial);
 
                     if (fragment instanceof PaginaInicialFragment) {
+
                         // Atualiza a UI no Fragment chamando o método 'updateTituloTxt()' no fragmento.
                         // como o título da tela, com a mensagem de erro recebida (errorMessage).
                         ((PaginaInicialFragment) fragment).updateTituloTxt(errorMessage);
@@ -234,7 +242,6 @@ public class Singleton {
             }
         });
 
-        // Adiciona a requisição à fila de execução
         volleyQueue.add(req);
     }
 

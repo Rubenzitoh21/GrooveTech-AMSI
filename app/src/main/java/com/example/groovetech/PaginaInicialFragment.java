@@ -43,7 +43,6 @@ public class PaginaInicialFragment extends Fragment implements HomeProdutosListe
 
         // Inicialização do View Binding
         binding = FragmentPaginaInicialBinding.inflate(inflater, container, false);
-        View rootView = inflater.inflate(R.layout.activity_main, container, false); // Substitui com o teu layout
         return binding.getRoot();
     }
 
