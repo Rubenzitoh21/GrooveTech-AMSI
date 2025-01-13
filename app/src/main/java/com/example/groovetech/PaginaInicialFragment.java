@@ -27,7 +27,6 @@ import com.example.groovetech.adaptadores.HomeProdutosAdaptador;
 import com.example.groovetech.databinding.FragmentPaginaInicialBinding;
 import com.example.groovetech.listeners.HomeProdutosListener;
 import com.example.groovetech.listeners.HomeProdutosSearchListener;
-import com.example.groovetech.utils.GridSpacingItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     @Override
     public void onUpdateLogin(Utilizador utilizador) {
 
-        if (utilizador.getAuth_key() != null) {
+        if (utilizador != null) {
             Toast.makeText(this, "Login efetuado com sucesso " + utilizador.getUsername(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra(TOKEN, utilizador.getAuth_key());
@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
             startActivity(intent);
             finish();
         } else {
-            Toast.makeText(this, "Token incorreto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Dados Incorretos", Toast.LENGTH_SHORT).show();
         }
     }
 

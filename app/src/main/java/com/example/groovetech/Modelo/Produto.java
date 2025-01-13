@@ -10,14 +10,14 @@ public class Produto implements Parcelable {
     private String nome, descricao, obs, categoria, imagem;
     private float preco;
 
-    public Produto(int id, String nome, String descricao, float preco, String obs, String categoria, int iva, String imagem) {
+    public Produto(int id, String nome, float preco, String descricao, String obs, int iva, String categoria, String imagem) {
         this.id = id;
         this.nome = nome;
+        this.preco = preco;
         this.descricao = descricao;
         this.obs = obs;
-        this.categoria = categoria;
         this.iva = iva;
-        this.preco = preco * ((float) iva / 100) + preco;
+        this.categoria = categoria;
         this.imagem = imagem;
     }
 
@@ -57,7 +57,6 @@ public class Produto implements Parcelable {
         return imagem;
     }
 
-    //get all produtos
 
     @Override
     public String toString() {

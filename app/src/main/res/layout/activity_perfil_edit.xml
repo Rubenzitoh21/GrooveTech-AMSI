@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/profile_icon" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_editar_dados"
+                    android:textColor="@color/MainThemeColor"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etNome"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/hint_primeiro_nome"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textColorHint="@color/MainThemeColor"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/etApelido"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/hint_apelido"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textColorHint="@color/MainThemeColor"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/etTelemovel"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/hint_telemovel"
+                android:inputType="phone"
+                android:textAlignment="center"
+                android:textColorHint="@color/MainThemeColor"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/etNif"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/hint_nif"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textColorHint="@color/MainThemeColor"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/etRua"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/hint_rua"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textColorHint="@color/MainThemeColor"
+                android:textSize="16sp" />
+
+
+            <EditText
+                android:id="@+id/etLocalidade"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/hint_localidade"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textColorHint="@color/MainThemeColor"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/etCodigoPostal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/edit_text_background"
+                android:ems="10"
+                android:hint="@string/hint_codigo_postal"
+                android:textAlignment="center"
+                android:textColorHint="@color/MainThemeColor"
+                android:textSize="16sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/hint_genero"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:boxCornerRadiusBottomEnd="30dp"
+                app:boxCornerRadiusBottomStart="30dp"
+                app:boxCornerRadiusTopEnd="30dp"
+                app:boxCornerRadiusTopStart="30dp"
+                app:boxStrokeColor="@color/red"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeWidthFocused="1dp"
+                app:hintTextColor="#1B79BB">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete_txtGenero"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="-10dp">
+
+                <!-- TextView centered horizontally -->
+                <TextView
+                    android:id="@+id/txtDataNascimento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:padding="5dp"
+                    android:text="@string/txt_data_de_nascimento"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/calendar"
+                    app:layout_constraintBottom_toBottomOf="@+id/dataPickerButton"
+                    app:layout_constraintEnd_toStartOf="@+id/dataPickerButton"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDataNascimento" />
+                <Button
+                    android:id="@+id/dataPickerButton"
+                    style="?android:spinnerStyle"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/calendar"
+                    android:layout_marginStart="30dp"
+                    android:drawablePadding="10dp"
+                    android:hint="Selecionar data"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDataNascimento" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnAtualizarDados"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="80dp"
+                android:background="@drawable/blue_button_background"
+                android:text="@string/txt_atualizar_dados"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCancelar"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/blue_button_background"
+                android:text="@string/txt_cancelar"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

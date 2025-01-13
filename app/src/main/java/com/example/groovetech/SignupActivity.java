@@ -64,10 +64,10 @@ public class SignupActivity extends AppCompatActivity implements SignupListener 
             binding.etPassword.setError("Password inválida");
             return;
         }
-        Singleton.getInstance(this).signupAPI(username, email, password, getApplicationContext(),this);
+        Singleton.getInstance(this).signupAPI(username, email, password, getApplicationContext(), this);
     }
 
-    public void onLoginButtonClick(View view) {
+    public void goToLoginClick(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
@@ -75,7 +75,7 @@ public class SignupActivity extends AppCompatActivity implements SignupListener 
     // Método que é chamado quando o registo é feito com a API
     public void onUpdateSignup(Utilizador user) {
         if (user != null) {
-            Toast.makeText(this, "Registo com sucesso" + user.getUsername(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Registo com sucesso " + user.getUsername(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra(TOKEN, user.getAuth_key());
             String username = binding.etUsername.getText().toString();

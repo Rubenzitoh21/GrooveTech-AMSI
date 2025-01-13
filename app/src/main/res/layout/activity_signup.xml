@@ -134,7 +134,7 @@
                     android:id="@+id/loginTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onLoginButtonClick"
+                    android:onClick="goToLoginClick"
                     android:text="@string/txt_login_signup"
                     android:textColor="@color/red"
                     android:textSize="16sp" />

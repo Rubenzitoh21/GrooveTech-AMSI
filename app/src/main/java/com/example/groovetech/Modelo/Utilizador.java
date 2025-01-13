@@ -26,6 +26,10 @@ public class Utilizador {
         this.verification_token = verification_token;
     }
 
+    public Utilizador(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
 
     public int getId() {
         return id;
@@ -106,6 +110,7 @@ public class Utilizador {
     public void setVerification_token(String verification_token) {
         this.verification_token = verification_token;
     }
+
     @Override
     public String toString() {
         return "Utilizador{" +

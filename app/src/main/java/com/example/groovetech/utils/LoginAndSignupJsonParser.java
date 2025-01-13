@@ -1,18 +1,15 @@
 package com.example.groovetech.utils;
 
-import android.util.Log;
-
 import com.example.groovetech.Modelo.Utilizador;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginJsonParser {
+public class LoginAndSignupJsonParser {
     public static Utilizador parserJsonLogin(JSONObject response) {
         Utilizador utilizador = null;
         try {
             JSONObject userJSON = response.getJSONObject("user");
-
             int id = userJSON.getInt("id");
             String username = userJSON.getString("username");
             String auth_key = userJSON.getString("auth_key");

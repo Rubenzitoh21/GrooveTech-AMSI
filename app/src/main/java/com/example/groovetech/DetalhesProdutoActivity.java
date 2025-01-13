@@ -9,10 +9,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.groovetech.Modelo.Carrinho;
 import com.example.groovetech.Modelo.Favoritos;
 import com.example.groovetech.Modelo.FavoritosBDHelper;
+import com.example.groovetech.Modelo.LinhaCarrinho;
 import com.example.groovetech.Modelo.Produto;
+import com.example.groovetech.Modelo.Singleton;
 import com.example.groovetech.databinding.ActivityDetalhesProdutoBinding;
+import com.example.groovetech.listeners.CarrinhoListener;
+
+import java.util.ArrayList;
 
 public class DetalhesProdutoActivity extends AppCompatActivity {
 
@@ -25,6 +31,8 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
     private int produtoID;
     private int userID;
 
+    private Carrinho carrinho;
+    private ArrayList<LinhaCarrinho> linhasCarrinho;
 
     private SharedPreferences preferences;
 
@@ -42,6 +50,7 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
         loadProdutoDetails();
         setupUI();
         checkAndUpdateFavoriteState();
+        AddProdutoToCarrinho();
     }
 
     @Override
@@ -65,15 +74,12 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
         Produto produto = getProdutoFromIntent();
         if (produto != null) {
             binding.nomeTxt.setText(produto.getNome());
+            binding.categoriaTxt.setText(produto.getCategoria());
             binding.precoTxt.setText(produto.getPreco() + "€");
             binding.tvDescricaoProduto.setText(produto.getDescricao());
 
             String imageUrl = "http://172.22.21.211:80/images/" + produto.getImagem();
-            Glide.with(this)
-                    .load(imageUrl)
-                    .dontTransform()
-                    .fitCenter()
-                    .into(binding.pic);
+            Glide.with(this).load(imageUrl).dontTransform().fitCenter().into(binding.pic);
 
             produtoID = produto.getId();
         }
@@ -131,8 +137,40 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
         updateFavoriteButton();
     }
 
+    private void AddProdutoToCarrinho() {
+        Produto produto = getProdutoFromIntent();
+        binding.btnAdicionarCarrinho.setOnClickListener(v -> {
+            Singleton singleton = Singleton.getInstance(getApplicationContext());
+            getCarrinhoAndLinhasCarrinho(singleton);
+
+            if (carrinho == null || linhasCarrinho.isEmpty()) {
+                createNovoCarrinhoAndAddProduto(singleton, produto);
+            }
+        });
+    }
+
+    /**
+     * Fetches the current cart and cart lines.
+     */
+    private void getCarrinhoAndLinhasCarrinho(Singleton singleton) {
+        singleton.getCarrinhoAPI(getApplicationContext(), null);
+        singleton.getLinhasCarrinhoAPI(getApplicationContext(), null);
+
+        // Atualiza as variáveis locais
+        carrinho = singleton.getCarrinho();
+        linhasCarrinho = singleton.getListaLinhasCarrinho();
+    }
+
+    private void createNovoCarrinhoAndAddProduto(Singleton singleton, Produto produto) {
+        singleton.createCarrinhoAPI(getApplicationContext());
+        singleton.createlinhasCarrinhoAPI(getApplicationContext(), carrinho, produto, null);
+        Toast.makeText(getApplicationContext(), "Produto adicionado ao carrinho", Toast.LENGTH_SHORT).show();
+
+    }
+
     private int getUserId() {
         return preferences.getInt("user_id", 0);
     }
+
 
 }

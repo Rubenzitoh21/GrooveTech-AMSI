@@ -66,24 +66,6 @@ public class HomeProdutosAdaptador extends RecyclerView.Adapter<HomeProdutosAdap
                 Intent intent = new Intent(context, DetalhesProdutoActivity.class);
                 intent.putExtra(DetalhesProdutoActivity.PRODUTO, produto);
                 startActivity(context, intent, null);
-
-                //TODO: DETALHES PRODUTO
-//                // Notify the listener about the item click and pass the position
-//                Intent intent = new Intent(context, DetalhesProdutoActivity.class);
-//                intent.putExtra(DetalhesProdutoActivity.PRODUTO, produto);
-
-                // Check if the product is in the Favoritos table for the current user
-                //TODO: FAVORITOS
-//                int userID = Singleton.getInstance(context).getUserId(context);
-//                FavoritosBDHelper dbHelper = new FavoritosBDHelper(context);
-
-//                boolean isProdutoInFavorites = dbHelper.isProdutoInFavorites(userID, produto.getId());
-//                dbHelper.close();
-
-                // Pass the information to the details activity
-//                intent.putExtra(DetalhesProdutoActivity.IS_FAVORITE, isProdutoInFavorites);
-
-//                startActivity(context,intent,null);
             }
         });
     }

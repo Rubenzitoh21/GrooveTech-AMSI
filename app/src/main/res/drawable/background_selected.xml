@@ -1,0 +1,13 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <layer-list>
+            <item android:drawable="@drawable/background_cinzento" />
+            <item android:drawable="@drawable/background_selecionado" />
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item android:drawable="@drawable/background_cinzento" />
+        </layer-list>
+    </item>
+</selector>

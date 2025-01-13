@@ -3,7 +3,7 @@
     <string name="select_shipping_method">Selecione o Método de Entrega</string>
     <string name="select_payment_method">Selecione o Metodo de Pagamento</string>
     <string name="txt_total">Total</string>
-    <string name="txt_valor">€-</string>
+    <string name="txt_carrinho_valor">€-</string>
     <string name="txt_checkout">Checkout</string>
     <string name="txt_metodo_de_envio">Metodo de Envio:</string>
     <string name="txt_metodo_de_pagamento">Metodo de Pagamento:</string>
@@ -93,4 +93,14 @@
     <string name="hint_password">Password</string>
     <string name="hint_login_username">Username</string>
     <string name="hint_login_password">Password</string>
+    <string name="erro_atualizar_perfil">Erro ao dar update no perfil</string>
+    <string name="perfil_atualizado_sucesso">Perfil atualizado com sucesso</string>
+    <string name="genero_selecionado">Género selecionado: %s</string>
+    <string name="telemovel_invalido">Formato de telemovel inválido</string>
+    <string name="nif_invalido">Formato do nif inválido (9 digitos)</string>
+    <string name="codigopostal_invalido">Formado do código postal inválido (0000-000)</string>
+    <string name="txt_categoria">Categoria</string>
+    <string name="txt_carrinho_subtotal">Subtotal</string>
+    <string name="back_button">seta pra voltar atrás</string>
+
 </resources>
