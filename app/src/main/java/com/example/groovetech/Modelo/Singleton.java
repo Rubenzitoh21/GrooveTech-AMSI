@@ -377,7 +377,7 @@ public class Singleton {
                         setCarrinho(carrinho);
 
                         if (carrinhoListener != null) {
-                            carrinhoListener.onCarrinhoDataLoaded();
+                            carrinhoListener.onCarrinhoDataLoaded(carrinho);
                         }
 
 
@@ -404,7 +404,7 @@ public class Singleton {
         volleyQueue.add(req);
     }
 
-    public void createCarrinhoAPI(Context context) {
+    public void createCarrinhoAPI(Context context, final CarrinhoListener carrinhoListener) {
         if (!isConnectionInternet(context)) {
             Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_SHORT).show();
         }
@@ -421,6 +421,9 @@ public class Singleton {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        if (carrinhoListener != null) {
+                            carrinhoListener.onCarrinhoDataLoaded(null);
+                        }
 
                     }
                 }, new Response.ErrorListener() {
@@ -462,7 +465,7 @@ public class Singleton {
                         setListaLinhasCarrinho(listaLinhasCarrinho);
 
                         if (linhasCarrinhoListener != null) {
-                            linhasCarrinhoListener.onRefreshListaLinhasCarrinhos(listaLinhasCarrinho);
+                            linhasCarrinhoListener.onListaLinhasCarrinhoLoaded(listaLinhasCarrinho);
                         }
 
                     }
@@ -520,7 +523,6 @@ public class Singleton {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Authorization", "Bearer " + getToken(context));
-                headers.put("Content-Type", "application/json");
 
                 return headers;
             }

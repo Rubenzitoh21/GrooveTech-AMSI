@@ -38,8 +38,9 @@ public class CarrinhoActivity extends AppCompatActivity implements LinhasCarrinh
 
     }
 
+
     @Override
-    public void onRefreshListaLinhasCarrinhos(ArrayList<LinhaCarrinho> linhasCarrinho) {
+    public void onListaLinhasCarrinhoLoaded(ArrayList<LinhaCarrinho> linhasCarrinho) {
         // Configura o RecyclerView para mostrar as linhas do carrinho
         binding.rvListaLinhaCarrinho.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
 
@@ -49,59 +50,21 @@ public class CarrinhoActivity extends AppCompatActivity implements LinhasCarrinh
 
         binding.progressBar.setVisibility(View.GONE);
 
-        updateCartValues(linhasCarrinho);
-
-    }
-
-    private void updateCartValues(ArrayList<LinhaCarrinho> linhasCarrinho) {
-        float subTotal = 0;
-        float totalIva = 0;
-
-        // Loop through the list to calculate subTotal and totalIva
-        for (LinhaCarrinho linhaCarrinho : linhasCarrinho) {
-            subTotal += linhaCarrinho.getPrecoVenda();  // Add each item's price to subTotal
-            totalIva += linhaCarrinho.getValorIva();    // Add each item's IVA to totalIva
-        }
-
-        // Calculate the total
-        float total = subTotal + totalIva;
-
-        // Update the UI with the new values
-        binding.tvValorIVA.setText(totalIva + "€");
-        binding.tvValorTotal.setText(total + "€");
-        binding.tvValorSubtotal.setText(subTotal + "€");
     }
 
     @Override
-    public void onCarrinhoDataLoaded() {
+    public void onCarrinhoDataLoaded(Carrinho carrinho) {
 
-        // Converter o valor total do carrinho que é string para float
-        String valorTotalText = binding.tvValorTotal.getText().toString(); // Get the text as a String
-        float valorTotal = 0.0f;
+        binding.tvValorTotal.setText(String.format("%.2f€", carrinho.getValorTotal()));
+        binding.tvValorSubtotal.setText(String.format("%.2f€", carrinho.getValorTotal()));
+        binding.tvValorIVA.setText(String.format("%.2f€", carrinho.getValorTotalIVA()));
 
-        try {
-            valorTotal = Float.parseFloat(valorTotalText);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        // Esconder o botão de finalizar encomenda se o valor total for 0
-        if (valorTotal == 0.0f) {
-            binding.btnFinalizarEncomenda.setVisibility(View.INVISIBLE);
+        if (carrinho.getValorTotal() == 0) {
+            binding.btnFinalizarEncomenda.setVisibility(View.GONE);
         } else {
             binding.btnFinalizarEncomenda.setVisibility(View.VISIBLE);
         }
 
     }
-
-    @Override
-    public void onItemUpdate() {
-
-    }
-
-    @Override
-    public void onItemDelete(ArrayList<LinhaCarrinho> linhasCarrinho, LinhaCarrinho linhaCarrinho) {
-
-    }
-
 
 }

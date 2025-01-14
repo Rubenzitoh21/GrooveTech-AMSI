@@ -6,10 +6,6 @@ import java.util.ArrayList;
 
 
 public interface LinhasCarrinhoListener {
-    void onRefreshListaLinhasCarrinhos(ArrayList<LinhaCarrinho> listaLinhaCarrinho);
-
-    void onItemUpdate();
-
-    void onItemDelete(ArrayList<LinhaCarrinho> listaLinhaCarrinho, LinhaCarrinho linhaCarrinho);
+    void onListaLinhasCarrinhoLoaded(ArrayList<LinhaCarrinho> listaLinhaCarrinho);
 }
 

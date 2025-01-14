@@ -5,14 +5,17 @@ public class Carrinho {
     int id, userId;
     String status, dtaPedido;
     float valorTotal;
+    double valorTotalIVA, valorSubtotal;
 
 
-    public Carrinho(int id, int userId, String status, String dtaPedido, float valorTotal) {
+    public Carrinho(int id, int userId, String status, String dtaPedido, float valorTotal, double valorTotalIVA, double valorSubtotal) {
         this.id = id;
         this.userId = userId;
         this.status = status;
         this.dtaPedido = dtaPedido;
         this.valorTotal = valorTotal;
+        this.valorTotalIVA = valorTotalIVA;
+        this.valorSubtotal = valorSubtotal;
     }
 
     public int getId() {
@@ -55,6 +58,22 @@ public class Carrinho {
         this.valorTotal = valorTotal;
     }
 
+    public double getValorTotalIVA() {
+        return valorTotalIVA;
+    }
+
+    public double getValorSubtotal() {
+        return valorSubtotal;
+    }
+
+    public void setValorSubtotal(double valorSubtotal) {
+        this.valorSubtotal = valorSubtotal;
+    }
+
+    public void setValorTotalIVA(double valorTotalIVA) {
+        this.valorTotalIVA = valorTotalIVA;
+    }
+
     @Override
     public String toString() {
         return "Carrinho{" +
@@ -63,6 +82,8 @@ public class Carrinho {
                 ", status='" + status + '\'' +
                 ", dtaPedido='" + dtaPedido + '\'' +
                 ", valorTotal=" + valorTotal +
+                ", valorTotalIVA=" + valorTotalIVA +
+                ", valorSubtotal=" + valorSubtotal +
                 '}';
     }
 }

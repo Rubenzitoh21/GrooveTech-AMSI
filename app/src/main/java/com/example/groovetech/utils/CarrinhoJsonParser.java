@@ -14,13 +14,19 @@ public class CarrinhoJsonParser {
         Carrinho carrinho = null;
         try {
             JSONObject carrinhoJSON = new JSONObject(response.toString());
+            //get json Object "carrinho"
+            carrinhoJSON = carrinhoJSON.getJSONObject("carrinho");
             int id = carrinhoJSON.getInt("id");
             String dtapedido = carrinhoJSON.getString("dtapedido");
             String status = carrinhoJSON.getString("status");
             float valortotal = (float) carrinhoJSON.getDouble("valortotal");
             int userid = carrinhoJSON.getInt("user_id");
 
-            carrinho = new Carrinho(id, userid, status, dtapedido, valortotal);
+            //Valores Totais do Carrinho
+            double totalIva = response.getDouble("total_iva");
+            double totalSubtotal = response.getDouble("subtotal");
+
+            carrinho = new Carrinho(id, userid, status, dtapedido, valortotal, totalIva, totalSubtotal);
 
 
         } catch (JSONException e) {

@@ -17,10 +17,11 @@ import com.example.groovetech.Modelo.Produto;
 import com.example.groovetech.Modelo.Singleton;
 import com.example.groovetech.databinding.ActivityDetalhesProdutoBinding;
 import com.example.groovetech.listeners.CarrinhoListener;
+import com.example.groovetech.listeners.LinhasCarrinhoListener;
 
 import java.util.ArrayList;
 
-public class DetalhesProdutoActivity extends AppCompatActivity {
+public class DetalhesProdutoActivity extends AppCompatActivity implements CarrinhoListener, LinhasCarrinhoListener {
 
 
     final public static String PRODUTO = "PRODUTO";
@@ -32,7 +33,8 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
     private int userID;
 
     private Carrinho carrinho;
-    private ArrayList<LinhaCarrinho> linhasCarrinho;
+    private ArrayList<LinhaCarrinho> listaLinhaCarrinho;
+    private Singleton singleton = Singleton.getInstance(getBaseContext());
 
     private SharedPreferences preferences;
 
@@ -46,6 +48,7 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
         dbHelper = new FavoritosBDHelper(this);
+
 
         loadProdutoDetails();
         setupUI();
@@ -140,10 +143,10 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
     private void AddProdutoToCarrinho() {
         Produto produto = getProdutoFromIntent();
         binding.btnAdicionarCarrinho.setOnClickListener(v -> {
-            Singleton singleton = Singleton.getInstance(getApplicationContext());
+            this.singleton = Singleton.getInstance(getApplicationContext());
             getCarrinhoAndLinhasCarrinho(singleton);
 
-            if (carrinho == null || linhasCarrinho.isEmpty()) {
+            if (carrinho == null || listaLinhaCarrinho.isEmpty()) {
                 createNovoCarrinhoAndAddProduto(singleton, produto);
             }
         });
@@ -155,14 +158,10 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
     private void getCarrinhoAndLinhasCarrinho(Singleton singleton) {
         singleton.getCarrinhoAPI(getApplicationContext(), null);
         singleton.getLinhasCarrinhoAPI(getApplicationContext(), null);
-
-        // Atualiza as variáveis locais
-        carrinho = singleton.getCarrinho();
-        linhasCarrinho = singleton.getListaLinhasCarrinho();
     }
 
     private void createNovoCarrinhoAndAddProduto(Singleton singleton, Produto produto) {
-        singleton.createCarrinhoAPI(getApplicationContext());
+        singleton.createCarrinhoAPI(getApplicationContext(), this);
         singleton.createlinhasCarrinhoAPI(getApplicationContext(), carrinho, produto, null);
         Toast.makeText(getApplicationContext(), "Produto adicionado ao carrinho", Toast.LENGTH_SHORT).show();
 
@@ -173,4 +172,13 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onCarrinhoDataLoaded(Carrinho carrinho) {
+        this.carrinho = Singleton.getInstance(getApplicationContext()).getCarrinho();
+    }
+
+    @Override
+    public void onListaLinhasCarrinhoLoaded(ArrayList<LinhaCarrinho> listaLinhaCarrinho) {
+        this.listaLinhaCarrinho = Singleton.getInstance(getApplicationContext()).getListaLinhasCarrinho();
+    }
 }

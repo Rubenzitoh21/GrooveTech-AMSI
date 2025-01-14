@@ -100,12 +100,13 @@ public class LinhasCarrinhoAdaptador extends RecyclerView.Adapter<LinhasCarrinho
             builder.setMessage("Tem a certeza que deseja remover este produto do carrinho?");
             builder.setPositiveButton("Sim", (dialog, which) -> {
                 if (listener != null) {
-                    listener.onRefreshListaLinhasCarrinhos(linhasCarrinho);
+                    listener.onListaLinhasCarrinhoLoaded(linhasCarrinho);
                 }
                 Singleton.getInstance(context).deleteLinhasCarrinhoAPI(context, currentLinhaCarrinho, null);
                 linhasCarrinho.remove(currentLinhaCarrinho);
                 notifyItemRemoved(currentPosition); // Notificar que este item foi removido
                 Singleton.getInstance(context).getLinhasCarrinhoAPI(context, null);
+                Singleton.getInstance(context).getCarrinhoAPI(context, null);
             });
             builder.setNegativeButton("Não", (dialog, which) -> dialog.dismiss());
             builder.create().show();

@@ -53,7 +53,7 @@ public class HomeProdutosAdaptador extends RecyclerView.Adapter<HomeProdutosAdap
         String imageUrl = "http://172.22.21.211:80/images/" + produto.getImagem();
 
         holder.binding.nomeTxt.setText(produto.getNome());
-        holder.binding.precoTxt.setText(produto.getPreco() + "€");
+        holder.binding.precoTxt.setText(String.format("%.2f€", produto.getPreco()));
 
         Glide.with(holder.itemView.getContext())
                 .load(imageUrl)
