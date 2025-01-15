@@ -43,16 +43,18 @@ public class CarrinhoActivity extends AppCompatActivity implements LinhasCarrinh
     @Override
     public void onListaLinhasCarrinhoLoaded(ArrayList<LinhaCarrinho> linhasCarrinho) {
         this.linhasCarrinho = linhasCarrinho;
+
         // Configura o RecyclerView para mostrar as linhas do carrinho
         binding.rvListaLinhaCarrinho.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
 
         // Define o adaptador para a lista de linhas do carrinho
-        adapter = new LinhasCarrinhoAdaptador(getApplicationContext(), this.linhasCarrinho, this, this);
+        adapter = new LinhasCarrinhoAdaptador(getApplicationContext(), linhasCarrinho, this, this);
         binding.rvListaLinhaCarrinho.setAdapter(adapter);
 
-        binding.progressBar.setVisibility(View.GONE);
 
+        binding.progressBar.setVisibility(View.GONE);
     }
+
 
     public void carrinhoUpdateUI(Carrinho carrinho) {
         binding.tvValorTotal.setText(String.format("%.2f€", carrinho.getValorTotal()));
@@ -76,7 +78,6 @@ public class CarrinhoActivity extends AppCompatActivity implements LinhasCarrinh
 
     @Override
     public void onDeletedLinhaCarrinho() {
-        Log.e("onDeletedLinhaCarrinho<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<", "onDeletedLinhaCarrinho");
         Singleton.getInstance(getApplicationContext()).getCarrinhoAPI(this, this);
         Carrinho carrinho = Singleton.getInstance(getApplicationContext()).getCarrinho();
         carrinhoUpdateUI(carrinho);
@@ -86,9 +87,9 @@ public class CarrinhoActivity extends AppCompatActivity implements LinhasCarrinh
     @Override
     public void onItemUpdate() {
         Singleton.getInstance(getApplicationContext()).getLinhasCarrinhoAPI(this, this);
-        ArrayList<LinhaCarrinho> linhasCarrinho = Singleton.getInstance(getApplicationContext()).getListaLinhasCarrinho();
-        adapter.updateLinhasCarrinho(linhasCarrinho);
         Singleton.getInstance(getApplicationContext()).getCarrinhoAPI(this, this);
+        linhasCarrinho = Singleton.getInstance(getApplicationContext()).getListaLinhasCarrinho();
+        adapter.updateLinhasCarrinho(linhasCarrinho);
         Carrinho carrinho = Singleton.getInstance(getApplicationContext()).getCarrinho();
         carrinhoUpdateUI(carrinho);
 

@@ -1,8 +1,11 @@
 package com.example.groovetech.adaptadores;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -70,40 +73,55 @@ public class LinhasCarrinhoAdaptador extends RecyclerView.Adapter<LinhasCarrinho
                 .fitCenter()
                 .into(holder.binding.imgProdutoCarrinho);
 
-        holder.binding.btnAumentaQtd.setOnClickListener(v -> {
-            int currentPosition = holder.getAdapterPosition();
-            LinhaCarrinho currentLinhaCarrinho = linhasCarrinho.get(currentPosition);
+        holder.binding.btnAumentaQtd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentPosition = holder.getAdapterPosition();
+                if (currentPosition != RecyclerView.NO_POSITION) {
+                    LinhaCarrinho linhaCarrinho = linhasCarrinho.get(currentPosition);
 
-            Singleton.getInstance(context).aumentarQuantidadeAPI(context, currentLinhaCarrinho);
 
-            notifyItemChanged(currentPosition);
-            notifyItemRangeChanged(position, linhasCarrinho.size());
-            Singleton.getInstance(context).getLinhasCarrinhoAPI(context, null);
-            Singleton.getInstance(context).getCarrinhoAPI(context, null);
+                    Singleton.getInstance(context).aumentarQuantidadeAPI(context, linhaCarrinho);
 
-            if (listenerUpdate != null) {
-                listenerUpdate.onItemUpdate();
+
+                    notifyItemChanged(currentPosition);
+
+                    Singleton.getInstance(context).getLinhasCarrinhoAPI(context, null);
+                    Singleton.getInstance(context).getCarrinhoAPI(context, null);
+
+                    // Notify the listener (if it's not null)
+                    if (listenerUpdate != null) {
+                        listenerUpdate.onItemUpdate();
+                    }
+                }
             }
         });
 
 
-        holder.binding.btnDiminuiQtd.setOnClickListener(v -> {
-            int currentPosition = holder.getAdapterPosition();
-            LinhaCarrinho currentLinhaCarrinho = linhasCarrinho.get(currentPosition);
+        holder.binding.btnDiminuiQtd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentPosition = holder.getAdapterPosition();
+                if (currentPosition != RecyclerView.NO_POSITION) {
+                    LinhaCarrinho linhaCarrinho = linhasCarrinho.get(currentPosition);
 
-            Singleton.getInstance(context).diminuirQuantidadeAPI(context, currentLinhaCarrinho);
 
-            notifyItemChanged(currentPosition);
-            notifyItemRangeChanged(position, linhasCarrinho.size());
-            Singleton.getInstance(context).getLinhasCarrinhoAPI(context, null);
-            Singleton.getInstance(context).getCarrinhoAPI(context, null);
+                    Singleton.getInstance(context).diminuirQuantidadeAPI(context, linhaCarrinho);
 
-            if (listenerUpdate != null) {
-                listenerUpdate.onItemUpdate();
+                    notifyItemChanged(currentPosition);
+
+                    Singleton.getInstance(context).getLinhasCarrinhoAPI(context, null);
+                    Singleton.getInstance(context).getCarrinhoAPI(context, null);
+
+                    // Notify the listener (if it's not null)
+                    if (listenerUpdate != null) {
+                        listenerUpdate.onItemUpdate();
+                    }
+                }
             }
         });
         holder.binding.btnDelete.setOnClickListener(v -> {
-            int currentPosition = holder.getAdapterPosition(); // Ter a posição do item clicado
+            int currentPosition = holder.getAdapterPosition();
             LinhaCarrinho currentLinhaCarrinho = linhasCarrinho.get(currentPosition);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
@@ -113,8 +131,8 @@ public class LinhasCarrinhoAdaptador extends RecyclerView.Adapter<LinhasCarrinho
                 Singleton.getInstance(context).deleteLinhasCarrinhoAPI(context, currentLinhaCarrinho);
                 linhasCarrinho.remove(currentPosition);
                 notifyItemRemoved(currentPosition);
-                notifyItemRangeChanged(position, linhasCarrinho.size());
                 Singleton.getInstance(context).getCarrinhoAPI(context, null);
+//                Singleton.getInstance(context).getLinhasCarrinhoAPI(context, null);
 
                 if (listenerDelete != null) {
                     listenerDelete.onDeletedLinhaCarrinho();
@@ -122,13 +140,7 @@ public class LinhasCarrinhoAdaptador extends RecyclerView.Adapter<LinhasCarrinho
             });
             builder.setNegativeButton("Não", (dialog, which) -> dialog.dismiss());
             builder.create().show();
-
-
         });
-    }
-
-    public void setProdutos(ArrayList<LinhaCarrinho> linhasCarrinho) {
-        this.linhasCarrinho = linhasCarrinho;
     }
 
     @Override

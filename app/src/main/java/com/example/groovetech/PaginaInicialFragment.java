@@ -55,6 +55,9 @@ public class PaginaInicialFragment extends Fragment implements HomeProdutosListe
         // Vai buscar a lista de produtos à API
         Singleton.getInstance(getContext()).getAllProdutosAPI(requireContext().getApplicationContext(), this);
 
+        //Cria o carrinho
+        Singleton.getInstance(getContext()).createCarrinhoAPI(requireContext().getApplicationContext());
+
         String username = getUsername();
         if (username == null) {
             return;
@@ -83,7 +86,8 @@ public class PaginaInicialFragment extends Fragment implements HomeProdutosListe
             public boolean onQueryTextChange(String newText) {
                 if (TextUtils.isEmpty(newText)) {
                     // se o texto da pesquisa estiver vazio, mostra todos os produtos
-                    Singleton.getInstance(getContext()).getAllProdutosAPI(requireContext().getApplicationContext(), PaginaInicialFragment.this);
+                    Singleton.getInstance(getContext()).getAllProdutosAPI(requireContext().getApplicationContext(),
+                            PaginaInicialFragment.this);
                     binding.tituloTxt.setText(getString(R.string.txt_titulo_home));
                 } else {
                     binding.searchView.setVisibility(View.VISIBLE);
@@ -108,7 +112,8 @@ public class PaginaInicialFragment extends Fragment implements HomeProdutosListe
 
     // Exibe um diálogo de confirmação para o logout
     public void showLogoutDialog(View view) {
-        new AlertDialog.Builder(requireContext()).setMessage("Tem certeza que deseja sair?").setCancelable(false) // Impede o fechamento do diálogo ao tocar fora dele
+        new AlertDialog.Builder(requireContext()).setMessage("Tem certeza que deseja sair?").setCancelable(false) // Impede o fechamento
+                // do diálogo ao tocar fora dele
                 .setPositiveButton("Sim", (dialog, id) -> {
                     logout();
                 }).setNegativeButton("Cancelar", (dialog, id) -> {

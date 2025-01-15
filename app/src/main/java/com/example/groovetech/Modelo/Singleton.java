@@ -160,11 +160,25 @@ public class Singleton {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, "Dados Incorretos", Toast.LENGTH_SHORT).show();
-                    if (utilizador != null) {
-                        Log.e("LoginAPI", "Utilizador Existe: " + utilizador.getUsername());
-                    } else {
-                        Log.e("LoginAPI", "Utilizador Não Existe");
+                    if (error.networkResponse != null) {
+                        String responseBody = new String(error.networkResponse.data);
+
+                        Log.e("UtilizadorProfile:", "Response Body" + responseBody);
+
+                        JSONObject jsonResponse = null;
+                        try {
+                            jsonResponse = new JSONObject(responseBody);
+                            JSONObject errorObj = jsonResponse.optJSONObject("error");
+
+                            if (errorObj != null) {
+                                String errorMessage = errorObj.optString("message");
+                                Log.e("UtilizadorProfile:", "Error Message: " + errorMessage);
+                                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
                     }
                 }
             });
@@ -373,7 +387,6 @@ public class Singleton {
                     public void onResponse(JSONObject response) {
 
                         carrinho = CarrinhoJsonParser.parserJsonCarrinho(response);
-                        Log.e("GET CARRINHO JSONPARSER", "Raw Response: " + carrinho);
 
                         //guardar o carrinho na instância do Singleton
                         setCarrinho(carrinho);
@@ -399,7 +412,6 @@ public class Singleton {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Authorization", "Bearer " + getToken(context));
 
-                Log.d("GET CARRINHO", "Headers: " + headers);
                 return headers;
             }
         };
@@ -415,7 +427,6 @@ public class Singleton {
         try {
             json.put("user_id", getUserId(context));
         } catch (Exception e) {
-            Log.e("CREATE CARRINHO", "Erro ao enviar POST carrinho: " + e.toString());
         }
 
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, UrlAPIcreateCarrinho(context), json,
@@ -441,7 +452,6 @@ public class Singleton {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Authorization", "Bearer " + getToken(context));
 
-                Log.d("GET CARRINHO", "Headers: " + headers);
                 return headers;
             }
         };
@@ -569,8 +579,11 @@ public class Singleton {
             Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_SHORT).show();
         }
 
+        String url = UrlAPIAumentarQuantidade(context) + linhaCarrinho.getIdLinha();
+        Log.d("AUMENTAR QUANTIDADE", "URL: " + url);
+
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH,
-                UrlAPIAumentarQuantidade(context), null,
+                url, null,
                 new Response.Listener<JSONObject>() {
 
                     @Override
@@ -621,8 +634,10 @@ public class Singleton {
         }
 
 
+        String url = UrlAPIDiminuirQuantidade(context) + linhaCarrinho.getIdLinha();
+
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.PATCH,
-                UrlAPIDiminuirQuantidade(context), null,
+                url, null,
                 new Response.Listener<JSONObject>() {
 
                     @Override
@@ -717,11 +732,11 @@ public class Singleton {
     }
 
     private String UrlAPIAumentarQuantidade(Context context) {
-        return "http://" + getApiIP(context) + "/api/produtos-carrinho/increase-quantity/" + LinhaCarrinho.getIdLinha();
+        return "http://" + getApiIP(context) + "/api/produtos-carrinho/increase-quantity/";
     }
 
     private String UrlAPIDiminuirQuantidade(Context context) {
-        return "http://" + getApiIP(context) + "/api/produtos-carrinho/decrease-quantity/" + LinhaCarrinho.getIdLinha();
+        return "http://" + getApiIP(context) + "/api/produtos-carrinho/decrease-quantity/";
     }
 
     private String UrlAPIdeleteLinhaCarrinho(Context context) {

@@ -1,0 +1,84 @@
+    <!-- activity_checkout.xml -->
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".CheckoutActivity">
+
+        <!-- User Billing Details Label -->
+        <TextView
+            android:id="@+id/textViewBillingDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_checkout"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:padding="16dp"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"/>
+
+        <!-- Address List Label -->
+
+    <!-- Existing RelativeLayout with Shipping, Payment, and Checkout elements -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".CheckoutActivity">
+
+            <!-- Shipping Method Label -->
+            <TextView
+                android:id="@+id/textViewShippingLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_metodo_de_envio"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"/>
+
+            <!-- Shipping Method Spinner -->
+            <Spinner
+                android:id="@+id/spinnerShippingMethod"
+                android:layout_width="188dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="61dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@id/textViewShippingLabel"
+                android:entries="@array/shipping_methods"
+                android:prompt="@string/select_shipping_method" />
+
+            <!-- Payment Method Label -->
+            <TextView
+                android:id="@+id/textViewPaymentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_metodo_de_pagamento"
+                android:layout_below="@id/spinnerShippingMethod"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"/>
+
+            <!-- Payment Method Spinner -->
+            <Spinner
+                android:id="@+id/spinnerPaymentMethod"
+                android:layout_width="188dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spinnerShippingMethod"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@id/textViewPaymentLabel"
+                android:entries="@array/payment_methods"
+                android:prompt="@string/select_payment_method" />
+
+            <!-- Proceed to Checkout Button -->
+            <Button
+                android:id="@+id/buttonProceedCheckout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_efetuar_encomenda"
+                android:layout_below="@id/spinnerPaymentMethod"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"/>
+        </RelativeLayout>
+    </LinearLayout>

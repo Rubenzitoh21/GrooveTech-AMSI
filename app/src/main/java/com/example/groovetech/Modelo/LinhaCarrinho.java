@@ -1,7 +1,7 @@
 package com.example.groovetech.Modelo;
 
 public class LinhaCarrinho {
-    static int idLinha;
+    int idLinha;
     int quantidade;
     int carrinhoID;
     int produtoID;
@@ -9,7 +9,7 @@ public class LinhaCarrinho {
 
     public LinhaCarrinho(int idLinha, int quantidade, float precoVenda, float valorIva, float subtotal, int produtoID, int carrinhoID) {
 
-        LinhaCarrinho.idLinha = idLinha;
+        this.idLinha = idLinha;
         this.quantidade = quantidade;
         this.precoVenda = precoVenda;
         this.valorIva = valorIva;
@@ -19,12 +19,12 @@ public class LinhaCarrinho {
 
     }
 
-    public static int getIdLinha() {
+    public int getIdLinha() {
         return idLinha;
     }
 
     public void setIdLinha(int idLinha) {
-        LinhaCarrinho.idLinha = idLinha;
+        this.idLinha = idLinha;
     }
 
     public int getQuantidade() {

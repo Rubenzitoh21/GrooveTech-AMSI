@@ -21,7 +21,7 @@ import com.example.groovetech.listeners.LinhasCarrinhoListener;
 
 import java.util.ArrayList;
 
-public class DetalhesProdutoActivity extends AppCompatActivity implements CarrinhoListener, LinhasCarrinhoListener {
+public class DetalhesProdutoActivity extends AppCompatActivity {
 
 
     final public static String PRODUTO = "PRODUTO";
@@ -145,15 +145,15 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements Carrin
         binding.btnAdicionarCarrinho.setOnClickListener(v -> {
             getCarrinhoAndLinhasCarrinho();
 
-            if (carrinho == null || listaLinhaCarrinho.isEmpty()) {
+            if (carrinho == null) {
                 createNovoCarrinhoAndAddProduto(produto);
             }
         });
     }
 
     private void getCarrinhoAndLinhasCarrinho() {
-        Singleton.getInstance(getApplicationContext()).getCarrinhoAPI(getApplicationContext(), this);
-        Singleton.getInstance(getApplicationContext()).getLinhasCarrinhoAPI(getApplicationContext(), this);
+        Singleton.getInstance(getApplicationContext()).getCarrinhoAPI(getApplicationContext(), null);
+        Singleton.getInstance(getApplicationContext()).getLinhasCarrinhoAPI(getApplicationContext(), null);
     }
 
     private void createNovoCarrinhoAndAddProduto(Produto produto) {
@@ -164,18 +164,5 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements Carrin
 
     private int getUserId() {
         return preferences.getInt("user_id", 0);
-    }
-
-
-    @Override
-    public void onCarrinhoDataLoaded(Carrinho carrinho) {
-        this.carrinho = carrinho;
-        this.carrinho = Singleton.getInstance(getApplicationContext()).getCarrinho();
-    }
-
-    @Override
-    public void onListaLinhasCarrinhoLoaded(ArrayList<LinhaCarrinho> listaLinhaCarrinho) {
-        this.listaLinhaCarrinho = listaLinhaCarrinho;
-        this.listaLinhaCarrinho = Singleton.getInstance(getApplicationContext()).getListaLinhasCarrinho();
     }
 }
