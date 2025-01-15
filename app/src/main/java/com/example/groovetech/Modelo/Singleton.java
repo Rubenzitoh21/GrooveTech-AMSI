@@ -57,6 +57,8 @@ public class Singleton {
 
     private ArrayList<Produto> listaProdutos = new ArrayList<>();
 
+    private ArrayList<Produto> searchedProdutos = new ArrayList<>();
+
     private ArrayList<LinhaCarrinho> listaLinhasCarrinho = new ArrayList<>();
 
 
@@ -225,11 +227,11 @@ public class Singleton {
             @Override
             public void onResponse(JSONArray response) {
                 Log.d("Produtos pesquisados:", "Raw Response: " + response.toString());
-                listaProdutos = ProdutoJsonParser.parserJsonProdutos(response);
+                searchedProdutos = ProdutoJsonParser.parserJsonProdutos(response);
 
                 // Notificar o listener com a lista de produtos
                 if (searchedProdutosListener != null) {
-                    searchedProdutosListener.onSearchResults(listaProdutos);
+                    searchedProdutosListener.onSearchResults(searchedProdutos);
                 }
             }
         }, new Response.ErrorListener() {
@@ -404,7 +406,7 @@ public class Singleton {
         volleyQueue.add(req);
     }
 
-    public void createCarrinhoAPI(Context context, final CarrinhoListener carrinhoListener) {
+    public void createCarrinhoAPI(Context context) {
         if (!isConnectionInternet(context)) {
             Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_SHORT).show();
         }
@@ -421,9 +423,6 @@ public class Singleton {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        if (carrinhoListener != null) {
-                            carrinhoListener.onCarrinhoDataLoaded(null);
-                        }
 
                     }
                 }, new Response.ErrorListener() {
@@ -490,8 +489,7 @@ public class Singleton {
         volleyQueue.add(req);
     }
 
-    public void createlinhasCarrinhoAPI(Context context, final Carrinho carrinho, final Produto produto,
-                                        final LinhasCarrinhoListener linhasCarrinhoListener) {
+    public void createlinhasCarrinhoAPI(Context context, final Carrinho carrinho, final Produto produto) {
         if (!isConnectionInternet(context)) {
             Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_SHORT).show();
         }
@@ -508,6 +506,7 @@ public class Singleton {
                     @Override
                     public void onResponse(JSONObject response) {
 
+                        Toast.makeText(context, "Produto adicionado ao carrinho", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -530,8 +529,7 @@ public class Singleton {
         volleyQueue.add(req);
     }
 
-    public void deleteLinhasCarrinhoAPI(Context context, final LinhaCarrinho linhaCarrinho,
-                                        final LinhasCarrinhoListener linhasCarrinhoListener) {
+    public void deleteLinhasCarrinhoAPI(Context context, final LinhaCarrinho linhaCarrinho) {
         if (!isConnectionInternet(context)) {
             Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_SHORT).show();
         }
@@ -577,8 +575,6 @@ public class Singleton {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("AUMENTAR QUANTIDADE", "Raw Response: " + response.toString());
-
 //                        if (linhasCarrinhosListener != null) {
 //                            linhasCarrinhosListener.onRefreshListaLinhasCarrinhos(listaLinhasCarrinho);
 //                        }
@@ -631,7 +627,7 @@ public class Singleton {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("AUMENTAR QUANTIDADE", "Raw Response: " + response.toString());
+                        Log.d("DIMINUIR QUANTIDADE", "Raw Response: " + response.toString());
 
 //                        if (linhasCarrinhosListener != null) {
 //                            linhasCarrinhosListener.onRefreshListaLinhasCarrinhos(listaLinhasCarrinho);
@@ -758,6 +754,10 @@ public class Singleton {
         return listaProdutos;
     }
 
+    public ArrayList<Produto> getSearchedProdutos() {
+        return searchedProdutos;
+    }
+
     public ArrayList<LinhaCarrinho> getListaLinhasCarrinho() {
         return listaLinhasCarrinho;
     }
@@ -774,6 +774,10 @@ public class Singleton {
 
     public void setListaProdutos(ArrayList<Produto> listaProdutos) {
         this.listaProdutos = listaProdutos;
+    }
+
+    public void setSearchedProdutos(ArrayList<Produto> searchedProdutos) {
+        this.searchedProdutos = searchedProdutos;
     }
 
     public void setListaLinhasCarrinho(ArrayList<LinhaCarrinho> listaLinhasCarrinho) {

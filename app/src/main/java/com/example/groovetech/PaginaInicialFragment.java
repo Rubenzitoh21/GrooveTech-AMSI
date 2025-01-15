@@ -150,10 +150,10 @@ public class PaginaInicialFragment extends Fragment implements HomeProdutosListe
     }
 
     @Override
-    public void onSearchResults(ArrayList<Produto> searchedProdutos) {
+    public void onSearchResults(ArrayList<Produto> listaProdutos) {
         if (binding.HomeProdutosRV.getAdapter() instanceof HomeProdutosAdaptador) {
             HomeProdutosAdaptador adapter = (HomeProdutosAdaptador) binding.HomeProdutosRV.getAdapter();
-            adapter.updateProdutos(searchedProdutos); // atualiza a lista de produtos com os resultados da pesquisa
+            adapter.updateProdutos(listaProdutos); // atualiza a lista de produtos com os resultados da pesquisa
 
         }
     }

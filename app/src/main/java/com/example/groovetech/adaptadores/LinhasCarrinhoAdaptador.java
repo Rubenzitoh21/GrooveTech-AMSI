@@ -2,7 +2,6 @@ package com.example.groovetech.adaptadores;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,7 +14,8 @@ import com.example.groovetech.Modelo.LinhaCarrinho;
 import com.example.groovetech.Modelo.Produto;
 import com.example.groovetech.Modelo.Singleton;
 import com.example.groovetech.databinding.ItemCarrinhoBinding;
-import com.example.groovetech.listeners.LinhasCarrinhoListener;
+import com.example.groovetech.listeners.OnLinhaCarrinhoDeletedListener;
+import com.example.groovetech.listeners.OnQuantidadeUpdate;
 
 import java.util.ArrayList;
 
@@ -24,24 +24,23 @@ public class LinhasCarrinhoAdaptador extends RecyclerView.Adapter<LinhasCarrinho
 
     private Context context;
     private ArrayList<LinhaCarrinho> linhasCarrinho;
-    private LinhasCarrinhoListener listener;
+    private OnLinhaCarrinhoDeletedListener listenerDelete;
+    private OnQuantidadeUpdate listenerUpdate;
 
     private Carrinho carrinho;
 
-    public LinhasCarrinhoAdaptador(Context context, ArrayList<LinhaCarrinho> linhasCarrinho) {
+    public LinhasCarrinhoAdaptador(Context context, ArrayList<LinhaCarrinho> linhasCarrinho,
+                                   OnLinhaCarrinhoDeletedListener listenerDelete, OnQuantidadeUpdate listenerUpdate) {
         this.context = context;
         this.linhasCarrinho = linhasCarrinho;
-        this.carrinho = carrinho;
+        this.listenerDelete = listenerDelete;
+        this.listenerUpdate = listenerUpdate;
     }
 
-    public void setOnItemClickListener(LinhasCarrinhoListener listener) {
-        this.listener = listener;
-    }
+    public void updateLinhasCarrinho(ArrayList<LinhaCarrinho> newListaLinhasCarrinho) {
+        this.linhasCarrinho = newListaLinhasCarrinho;
+        notifyDataSetChanged();
 
-    // Método que atualiza a lista de produtos
-    public void updateLinhasCarrinho(ArrayList<LinhaCarrinho> newLinhasCarrinho) {
-        this.linhasCarrinho = newLinhasCarrinho;
-        notifyDataSetChanged(); // Notificar o adaptador para atualizar o RecyclerView
     }
 
     @NonNull
@@ -57,7 +56,6 @@ public class LinhasCarrinhoAdaptador extends RecyclerView.Adapter<LinhasCarrinho
 
         int ProdutoID = linhaCarrinho.getProdutoID();
         Produto produto = Singleton.getInstance(context).searchProdutoToLinhaCarrinho(ProdutoID);
-        Log.d("Produto", produto.toString());
         if (produto == null) {
             return;
         }
@@ -73,22 +71,35 @@ public class LinhasCarrinhoAdaptador extends RecyclerView.Adapter<LinhasCarrinho
                 .into(holder.binding.imgProdutoCarrinho);
 
         holder.binding.btnAumentaQtd.setOnClickListener(v -> {
-            int currentPosition = holder.getAdapterPosition(); // Ter a posição do item clicado
-            if (currentPosition != RecyclerView.NO_POSITION) {
-                LinhaCarrinho currentLinhaCarrinho = linhasCarrinho.get(currentPosition);
+            int currentPosition = holder.getAdapterPosition();
+            LinhaCarrinho currentLinhaCarrinho = linhasCarrinho.get(currentPosition);
 
-                Singleton.getInstance(context).aumentarQuantidadeAPI(context, currentLinhaCarrinho);
-                notifyItemChanged(currentPosition); // Notificar que este item foi alterado
+            Singleton.getInstance(context).aumentarQuantidadeAPI(context, currentLinhaCarrinho);
+
+            notifyItemChanged(currentPosition);
+            notifyItemRangeChanged(position, linhasCarrinho.size());
+            Singleton.getInstance(context).getLinhasCarrinhoAPI(context, null);
+            Singleton.getInstance(context).getCarrinhoAPI(context, null);
+
+            if (listenerUpdate != null) {
+                listenerUpdate.onItemUpdate();
             }
         });
 
-        holder.binding.btnDiminuiQtd.setOnClickListener(v -> {
-            int currentPosition = holder.getAdapterPosition(); // Ter a posição do item clicado
-            if (currentPosition != RecyclerView.NO_POSITION) {
-                LinhaCarrinho currentLinhaCarrinho = linhasCarrinho.get(currentPosition);
 
-                Singleton.getInstance(context).diminuirQuantidadeAPI(context, currentLinhaCarrinho);
-                notifyItemChanged(currentPosition); // Notificar que este item foi alterado
+        holder.binding.btnDiminuiQtd.setOnClickListener(v -> {
+            int currentPosition = holder.getAdapterPosition();
+            LinhaCarrinho currentLinhaCarrinho = linhasCarrinho.get(currentPosition);
+
+            Singleton.getInstance(context).diminuirQuantidadeAPI(context, currentLinhaCarrinho);
+
+            notifyItemChanged(currentPosition);
+            notifyItemRangeChanged(position, linhasCarrinho.size());
+            Singleton.getInstance(context).getLinhasCarrinhoAPI(context, null);
+            Singleton.getInstance(context).getCarrinhoAPI(context, null);
+
+            if (listenerUpdate != null) {
+                listenerUpdate.onItemUpdate();
             }
         });
         holder.binding.btnDelete.setOnClickListener(v -> {
@@ -99,14 +110,15 @@ public class LinhasCarrinhoAdaptador extends RecyclerView.Adapter<LinhasCarrinho
             builder.setTitle("Remover produto");
             builder.setMessage("Tem a certeza que deseja remover este produto do carrinho?");
             builder.setPositiveButton("Sim", (dialog, which) -> {
-                if (listener != null) {
-                    listener.onListaLinhasCarrinhoLoaded(linhasCarrinho);
-                }
-                Singleton.getInstance(context).deleteLinhasCarrinhoAPI(context, currentLinhaCarrinho, null);
-                linhasCarrinho.remove(currentLinhaCarrinho);
-                notifyItemRemoved(currentPosition); // Notificar que este item foi removido
-                Singleton.getInstance(context).getLinhasCarrinhoAPI(context, null);
+                Singleton.getInstance(context).deleteLinhasCarrinhoAPI(context, currentLinhaCarrinho);
+                linhasCarrinho.remove(currentPosition);
+                notifyItemRemoved(currentPosition);
+                notifyItemRangeChanged(position, linhasCarrinho.size());
                 Singleton.getInstance(context).getCarrinhoAPI(context, null);
+
+                if (listenerDelete != null) {
+                    listenerDelete.onDeletedLinhaCarrinho();
+                }
             });
             builder.setNegativeButton("Não", (dialog, which) -> dialog.dismiss());
             builder.create().show();

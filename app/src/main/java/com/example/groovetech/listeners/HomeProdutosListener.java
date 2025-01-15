@@ -6,5 +6,4 @@ import java.util.ArrayList;
 
 public interface HomeProdutosListener {
     void onRefreshHomeProdutos(ArrayList<Produto> listaProdutos);
-    void onSearchResults(ArrayList<Produto> searchedProdutos);
 }

@@ -143,27 +143,22 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements Carrin
     private void AddProdutoToCarrinho() {
         Produto produto = getProdutoFromIntent();
         binding.btnAdicionarCarrinho.setOnClickListener(v -> {
-            this.singleton = Singleton.getInstance(getApplicationContext());
-            getCarrinhoAndLinhasCarrinho(singleton);
+            getCarrinhoAndLinhasCarrinho();
 
             if (carrinho == null || listaLinhaCarrinho.isEmpty()) {
-                createNovoCarrinhoAndAddProduto(singleton, produto);
+                createNovoCarrinhoAndAddProduto(produto);
             }
         });
     }
 
-    /**
-     * Fetches the current cart and cart lines.
-     */
-    private void getCarrinhoAndLinhasCarrinho(Singleton singleton) {
-        singleton.getCarrinhoAPI(getApplicationContext(), null);
-        singleton.getLinhasCarrinhoAPI(getApplicationContext(), null);
+    private void getCarrinhoAndLinhasCarrinho() {
+        Singleton.getInstance(getApplicationContext()).getCarrinhoAPI(getApplicationContext(), this);
+        Singleton.getInstance(getApplicationContext()).getLinhasCarrinhoAPI(getApplicationContext(), this);
     }
 
-    private void createNovoCarrinhoAndAddProduto(Singleton singleton, Produto produto) {
-        singleton.createCarrinhoAPI(getApplicationContext(), this);
-        singleton.createlinhasCarrinhoAPI(getApplicationContext(), carrinho, produto, null);
-        Toast.makeText(getApplicationContext(), "Produto adicionado ao carrinho", Toast.LENGTH_SHORT).show();
+    private void createNovoCarrinhoAndAddProduto(Produto produto) {
+        Singleton.getInstance(getApplicationContext()).createCarrinhoAPI(getApplicationContext());
+        Singleton.getInstance(getApplicationContext()).createlinhasCarrinhoAPI(getApplicationContext(), carrinho, produto);
 
     }
 
@@ -174,11 +169,13 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements Carrin
 
     @Override
     public void onCarrinhoDataLoaded(Carrinho carrinho) {
+        this.carrinho = carrinho;
         this.carrinho = Singleton.getInstance(getApplicationContext()).getCarrinho();
     }
 
     @Override
     public void onListaLinhasCarrinhoLoaded(ArrayList<LinhaCarrinho> listaLinhaCarrinho) {
+        this.listaLinhaCarrinho = listaLinhaCarrinho;
         this.listaLinhaCarrinho = Singleton.getInstance(getApplicationContext()).getListaLinhasCarrinho();
     }
 }
