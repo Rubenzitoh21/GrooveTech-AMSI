@@ -37,6 +37,12 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
+            android:name=".CheckoutActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ListaFaturasActivity"
+            android:exported="true" />
+        <activity
             android:name=".DetalhesProdutoActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />

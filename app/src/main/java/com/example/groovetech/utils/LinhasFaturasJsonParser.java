@@ -16,6 +16,7 @@ public class LinhasFaturasJsonParser {
         try {
             for (int i = 0; i < response.length(); i++) {
                 JSONObject linhaJson = (JSONObject) response.get(i);
+                int id = linhaJson.getInt("id");
                 int quantidade = linhaJson.getInt("quantidade");
                 int iva = linhaJson.getInt("iva");
                 String nomeProduto = linhaJson.getString("nome_produto");

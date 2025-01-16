@@ -38,7 +38,7 @@
 
             <!-- Shipping Method Spinner -->
             <Spinner
-                android:id="@+id/spinnerShippingMethod"
+                android:id="@+id/spinnerExpedicao"
                 android:layout_width="188dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="61dp"
@@ -54,16 +54,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_metodo_de_pagamento"
-                android:layout_below="@id/spinnerShippingMethod"
+                android:layout_below="@id/spinnerExpedicao"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"/>
 
             <!-- Payment Method Spinner -->
             <Spinner
-                android:id="@+id/spinnerPaymentMethod"
+                android:id="@+id/SpinnerPagamento"
                 android:layout_width="188dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/spinnerShippingMethod"
+                android:layout_below="@id/spinnerExpedicao"
                 android:layout_marginStart="22dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginEnd="16dp"
@@ -77,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_efetuar_encomenda"
-                android:layout_below="@id/spinnerPaymentMethod"
+                android:layout_below="@id/SpinnerPagamento"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"/>
         </RelativeLayout>

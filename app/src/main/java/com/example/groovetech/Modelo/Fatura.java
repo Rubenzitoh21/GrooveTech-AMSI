@@ -1,16 +1,18 @@
 package com.example.groovetech.Modelo;
 
 public class Fatura {
-    int id, userID;
+    int id, userID, pagamentosID, expedicoesID;
     String data, status;
     float valorTotal;
 
-    public Fatura(int id, int userID, String data, String status, float valorTotal) {
+    public Fatura(int id, String data, float valorTotal, String status, int userID, int pagamentosID, int expedicoesID) {
         this.id = id;
-        this.userID = userID;
         this.data = data;
-        this.status = status;
         this.valorTotal = valorTotal;
+        this.status = status;
+        this.userID = userID;
+        this.pagamentosID = pagamentosID;
+        this.expedicoesID = expedicoesID;
     }
 
     public int getId() {

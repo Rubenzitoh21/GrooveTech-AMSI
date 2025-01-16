@@ -6,5 +6,5 @@ import java.util.ArrayList;
 
 
 public interface FaturasListener {
-    void onRefreshListaFatura(ArrayList<Fatura> listaFaturas);
+    void onFaturasDataLoaded(ArrayList<Fatura> listaFaturas);
 }

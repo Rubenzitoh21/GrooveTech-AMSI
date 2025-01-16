@@ -1,5 +1,6 @@
 package com.example.groovetech;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +38,10 @@ public class CarrinhoActivity extends AppCompatActivity implements LinhasCarrinh
         Singleton.getInstance(getApplicationContext()).getCarrinhoAPI(this, this);
 
 
+        binding.btnFinalizarEncomenda.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), CheckoutActivity.class);
+            startActivity(intent);
+        });
     }
 
 

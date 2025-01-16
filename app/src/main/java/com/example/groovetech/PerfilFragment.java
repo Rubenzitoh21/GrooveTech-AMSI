@@ -78,6 +78,11 @@ public class PerfilFragment extends Fragment implements PerfilListener {
             isDadosPessoaisActive = true;
         });
         binding.btnEditarPerfil.setOnClickListener(v -> navigateToEditProfile());
+
+        binding.linearLayoutFaturas.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), ListaFaturasActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void displayDadosMorada() {

@@ -102,5 +102,8 @@
     <string name="txt_categoria">Categoria</string>
     <string name="txt_carrinho_subtotal">Subtotal</string>
     <string name="back_button">seta pra voltar atrás</string>
+    <string name="metodo_pagamento_selecionado">"Método de pagamento selecionado: "</string>
+    <string name="metodo_expedicao_selecionado">"Método de expedicao selecionado: "</string>
+    <string name="encomenda_finalizada_com_sucesso">Encomenda finalizada com sucesso</string>
 
 </resources>

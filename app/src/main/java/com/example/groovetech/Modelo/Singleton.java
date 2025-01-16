@@ -21,16 +21,22 @@ import com.android.volley.toolbox.Volley;
 import com.example.groovetech.PaginaInicialFragment;
 import com.example.groovetech.R;
 import com.example.groovetech.listeners.CarrinhoListener;
+import com.example.groovetech.listeners.ExpedicoesListener;
+import com.example.groovetech.listeners.FaturasListener;
 import com.example.groovetech.listeners.HomeProdutosListener;
 import com.example.groovetech.listeners.HomeProdutosSearchListener;
 import com.example.groovetech.listeners.LinhasCarrinhoListener;
 import com.example.groovetech.listeners.LoginListener;
+import com.example.groovetech.listeners.PagamentosListener;
 import com.example.groovetech.listeners.PerfilEditListener;
 import com.example.groovetech.listeners.PerfilListener;
 import com.example.groovetech.listeners.SignupListener;
 import com.example.groovetech.utils.CarrinhoJsonParser;
+import com.example.groovetech.utils.ExpedicoesJsonParser;
+import com.example.groovetech.utils.FaturasJsonParser;
 import com.example.groovetech.utils.LinhaCarrinhoJsonParser;
 import com.example.groovetech.utils.LoginAndSignupJsonParser;
+import com.example.groovetech.utils.PagamentosJsonParser;
 import com.example.groovetech.utils.ProdutoJsonParser;
 import com.example.groovetech.utils.PerfilJsonParser;
 
@@ -38,6 +44,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,6 +65,14 @@ public class Singleton {
     private ArrayList<Produto> listaProdutos = new ArrayList<>();
 
     private ArrayList<Produto> searchedProdutos = new ArrayList<>();
+
+    private ArrayList<Pagamento> listaPagamentos = new ArrayList<>();
+
+    private ArrayList<Expedicao> listaExpedicoes = new ArrayList<>();
+
+    private ArrayList<Fatura> listaFaturas = new ArrayList<>();
+
+    private ArrayList<LinhasFaturas> listaLinhasFaturas = new ArrayList<>();
 
     private ArrayList<LinhaCarrinho> listaLinhasCarrinho = new ArrayList<>();
 
@@ -683,6 +698,215 @@ public class Singleton {
         volleyQueue.add(req);
     }
 
+    public void getAllPagamentosAPI(Context context, final PagamentosListener Pagamentoslistener) {
+        if (!isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_SHORT).show();
+
+        } else {
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, UrlAPIgetPagamentos(context), null,
+                    new Response.Listener<JSONArray>() {
+
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            Log.d("PAGAMENTOS", "Raw Response: " + response.toString());
+                            listaPagamentos = PagamentosJsonParser.parserJsonPagamentos(response);
+
+                            // Guardar a lista de produtos na instância do Singleton
+                            setListaPagamentos(listaPagamentos);
+
+
+                            // Notificar o listener que a lista de produtos foi atualizada
+                            if (Pagamentoslistener != null) {
+                                Pagamentoslistener.onPagamentosDataLoaded(listaPagamentos);
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if (error.networkResponse != null) {
+                        String responseBody = new String(error.networkResponse.data);
+
+                        JSONObject jsonResponse = null;
+                        try {
+                            jsonResponse = new JSONObject(responseBody);
+                            JSONObject errorObj = jsonResponse.optJSONObject("error");
+
+                            if (errorObj != null) {
+                                String errorMessage = errorObj.optString("message");
+                                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Authorization", "Bearer " + getToken(context));
+
+                    return headers;
+                }
+            };
+
+            volleyQueue.add(req);
+        }
+    }
+
+    public void getAllExpedicoesAPI(Context context, final ExpedicoesListener Expedicoeslistener) {
+        if (!isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_SHORT).show();
+
+        } else {
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, UrlAPIgetExpedicoes(context), null,
+                    new Response.Listener<JSONArray>() {
+
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            Log.d("EXPEDICOES", "Raw Response: " + response.toString());
+                            listaExpedicoes = ExpedicoesJsonParser.parserJsonExpedicoes(response);
+
+                            setListaExpedicoes(listaExpedicoes);
+
+                            if (Expedicoeslistener != null) {
+                                Expedicoeslistener.onExpedicoesDataLoaded(listaExpedicoes);
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if (error.networkResponse != null) {
+                        String responseBody = new String(error.networkResponse.data);
+
+                        JSONObject jsonResponse = null;
+                        try {
+                            jsonResponse = new JSONObject(responseBody);
+                            JSONObject errorObj = jsonResponse.optJSONObject("error");
+
+                            if (errorObj != null) {
+                                String errorMessage = errorObj.optString("message");
+                                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Authorization", "Bearer " + getToken(context));
+
+                    return headers;
+                }
+            };
+
+            volleyQueue.add(req);
+        }
+    }
+
+    public void getAllFaturasByUserIdAPI(Context context, final FaturasListener Faturaslistener) {
+        if (!isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_SHORT).show();
+
+        } else {
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, UrlAPIgetFaturasByUserId(context), null,
+                    new Response.Listener<JSONArray>() {
+
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            Log.d("EXPEDICOES", "Raw Response: " + response.toString());
+                            listaFaturas = FaturasJsonParser.parserJsonFaturas(response);
+
+                            setListaFaturas(listaFaturas);
+
+                            if (Faturaslistener != null) {
+                                Faturaslistener.onFaturasDataLoaded(listaFaturas);
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+//                    if (error.networkResponse != null) {
+//                        String responseBody = new String(error.networkResponse.data);
+//
+//                        JSONObject jsonResponse = null;
+//                        try {
+//                            jsonResponse = new JSONObject(responseBody);
+//                            JSONObject errorObj = jsonResponse.optJSONObject("error");
+//
+//                            if (errorObj != null) {
+//                                String errorMessage = errorObj.optString("message");
+//                                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+//                            }
+//                        } catch (JSONException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//
+//                    }
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Authorization", "Bearer " + getToken(context));
+
+                    return headers;
+                }
+            };
+
+            volleyQueue.add(req);
+        }
+    }
+
+    public void createFaturaAndLinhasFaturaAPI(Context context, int pagamento_id, int expedicao_id) {
+        if (!isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_SHORT).show();
+        }
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("pagamentos_id", pagamento_id);
+            jsonObject.put("expedicoes_id", expedicao_id);
+        } catch (Exception e) {
+            Log.e("CREATE CARRINHO", "Error creating JSON: " + e.toString());
+        }
+
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, UrlAPIcreateFaturaAndLinhaFatura(context), jsonObject,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Toast.makeText(context, "Fatura criada com Suceso", Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //display the http response
+                if (error.networkResponse != null) {
+                    Log.e("ERROR CREATE FATURA", "Response Body" + new String(error.networkResponse.data));
+                }
+            }
+
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + getToken(context));
+
+                return headers;
+            }
+        };
+        volleyQueue.add(req);
+    }
+
     public static boolean isConnectionInternet(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -743,6 +967,22 @@ public class Singleton {
         return "http://" + getApiIP(context) + "/api/produtos-carrinho/delete/";
     }
 
+    private String UrlAPIgetPagamentos(Context context) {
+        return "http://" + getApiIP(context) + "/api/pagamento/all";
+    }
+
+    private String UrlAPIgetExpedicoes(Context context) {
+        return "http://" + getApiIP(context) + "/api/expedicao/all";
+    }
+
+    private String UrlAPIcreateFaturaAndLinhaFatura(Context context) {
+        return "http://" + getApiIP(context) + "/api/fatura/create";
+    }
+
+    private String UrlAPIgetFaturasByUserId(Context context) {
+        return "http://" + getApiIP(context) + "/api/fatura/all/" + getUserId(context);
+    }
+
 
     public void saveUserPreferences(Context context, int userId, String token, String username) {
         SharedPreferences preferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
@@ -765,8 +1005,20 @@ public class Singleton {
         return this.carrinho;
     }
 
+    public ArrayList<Fatura> getListaFaturas() {
+        return listaFaturas;
+    }
+
     public ArrayList<Produto> getListaProdutos() {
         return listaProdutos;
+    }
+
+    public ArrayList<Pagamento> getListaPagamentos() {
+        return listaPagamentos;
+    }
+
+    public ArrayList<Expedicao> getListaExpedicoes() {
+        return listaExpedicoes;
     }
 
     public ArrayList<Produto> getSearchedProdutos() {
@@ -787,8 +1039,20 @@ public class Singleton {
         return null;
     }
 
+    public void setListaFaturas(ArrayList<Fatura> listaFaturas) {
+        this.listaFaturas = listaFaturas;
+    }
+
     public void setListaProdutos(ArrayList<Produto> listaProdutos) {
         this.listaProdutos = listaProdutos;
+    }
+
+    public void setListaPagamentos(ArrayList<Pagamento> listaPagamentos) {
+        this.listaPagamentos = listaPagamentos;
+    }
+
+    public void setListaExpedicoes(ArrayList<Expedicao> listaExpedicoes) {
+        this.listaExpedicoes = listaExpedicoes;
     }
 
     public void setSearchedProdutos(ArrayList<Produto> searchedProdutos) {
