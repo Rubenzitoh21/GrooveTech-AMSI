@@ -15,6 +15,22 @@ public class Fatura {
         this.expedicoesID = expedicoesID;
     }
 
+    public int getPagamentosID() {
+        return pagamentosID;
+    }
+
+    public int getExpedicoesID() {
+        return expedicoesID;
+    }
+
+    public void setPagamentosID(int pagamentosID) {
+        this.pagamentosID = pagamentosID;
+    }
+
+    public void setExpedicoesID(int expedicoesID) {
+        this.expedicoesID = expedicoesID;
+    }
+
     public int getId() {
         return id;
     }

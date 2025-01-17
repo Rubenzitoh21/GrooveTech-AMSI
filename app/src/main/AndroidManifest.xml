@@ -43,6 +43,9 @@
             android:name=".ListaFaturasActivity"
             android:exported="true" />
         <activity
+            android:name=".FaturaActivity"
+            android:exported="true" />
+        <activity
             android:name=".DetalhesProdutoActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />

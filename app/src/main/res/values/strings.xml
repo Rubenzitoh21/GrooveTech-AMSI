@@ -78,7 +78,7 @@
     <string name="txt_linhafatura_price">Price</string>
     <string name="txt_linhafatura_iva">IVA</string>
     <string name="txt_linhafatura_quantity">Quantity</string>
-    <string name="txt_linhafatura_total">Total</string>
+    <string name="txt_linhafatura_subtotal">Sub-Total</string>
     <string name="hint_api_url">API URL</string>
     <string name="hint_primeiro_nome">Primeiro Nome</string>
     <string name="hint_apelido">Apelido</string>

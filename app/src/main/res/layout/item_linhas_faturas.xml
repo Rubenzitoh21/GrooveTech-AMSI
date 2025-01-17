@@ -1,350 +1,63 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
 
-    <!-- Header Section -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+    <!-- Header Row -->
+    <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/EmpresaTxt"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvNome"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="GrooveTech"
-            android:textColor="@color/black"
-            android:textSize="25sp"
+            android:layout_weight="1"
+            android:layout_marginVertical="10dp"
+            android:gravity="left"
+            android:text="@string/txt_linhafatura_name"
+            android:textSize="16sp"
+            android:textColor="@color/MainThemeColor"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/FaturaidTxt"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvPreco"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Fatura #90"
-            android:textColor="@color/black"
-            android:textSize="25sp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/txt_linhafatura_price"
+            android:textColor="@color/MainThemeColor"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/EmpresaTxt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/EmpresaTxt" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!-- De Section -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/DeSection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+            android:textSize="16sp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/DeTxt"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvQuantidade"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="De:"
-            android:textColor="@color/black"
-            android:textSize="18sp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/txt_linhafatura_quantity"
+            android:textSize="16sp"
+            android:textColor="@color/MainThemeColor"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/NomeEmpresaTxt"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvSubTotal"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="GrooveTech"
-            android:textColor="@color/black"
-            android:textSize="15sp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/txt_linhafatura_subtotal"
+            android:textSize="16sp"
+            android:textColor="@color/MainThemeColor"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/EmailTxt"
-            app:layout_constraintTop_toBottomOf="@+id/DeTxt" />
-
-        <TextView
-            android:id="@+id/EmailTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="groovetech@mail.com"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@id/NomeEmpresaTxt"
-            app:layout_constraintTop_toBottomOf="@id/NomeEmpresaTxt" />
-
-        <TextView
-            android:id="@+id/EnderecoTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Rua Morro Lena, Alto Do Vieiro"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@id/EmailTxt"
-            app:layout_constraintTop_toBottomOf="@id/EmailTxt" />
-
-        <TextView
-            android:id="@+id/PostalTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="2411-901 Leiria"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@id/EnderecoTxt"
-            app:layout_constraintTop_toBottomOf="@id/EnderecoTxt" />
-
-        <TextView
-            android:id="@+id/PhoneTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="244111222"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@id/PostalTxt"
-            app:layout_constraintTop_toBottomOf="@id/PostalTxt" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Para Section -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ParaSection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="@+id/DeSection"
-        app:layout_constraintTop_toBottomOf="@id/DeSection">
-
-
-        <TextView
-            android:id="@+id/ParaTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Para:"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/ParaNomeTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Nelson Constâncio"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/ParaTxt"
-            app:layout_constraintTop_toBottomOf="@id/ParaTxt" />
-
-        <TextView
-            android:id="@+id/ParaEmpresaTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="PAPOILAS"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@id/ParaNomeTxt"
-            app:layout_constraintTop_toBottomOf="@id/ParaNomeTxt" />
-
-        <TextView
-            android:id="@+id/ParaEnderecoTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="3382-213 AMORAS"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@id/ParaEmpresaTxt"
-            app:layout_constraintTop_toBottomOf="@id/ParaEmpresaTxt" />
-
-        <TextView
-            android:id="@+id/ParaEmailTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="nelson@mail.pt"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@id/ParaEnderecoTxt"
-            app:layout_constraintTop_toBottomOf="@id/ParaEnderecoTxt" />
-
-        <TextView
-            android:id="@+id/ParaPhoneTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="987654321"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@id/ParaEmailTxt"
-            app:layout_constraintTop_toBottomOf="@id/ParaEmailTxt" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Table Section -->
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:text="Resumo da compra"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/TableSection"
-        app:layout_constraintStart_toStartOf="@+id/TableSection" />
-
-    <TableLayout
-        android:id="@+id/TableSection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="476dp">
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/Column1Header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="#"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/Column2Header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Preço"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/Column3Header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Quantidade"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/Column4Header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Sub-Total"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-        </TableRow>
-
-        <TableRow/>
-
-    </TableLayout>
-
-    <!-- Date of Invoice Section -->
-    <TextView
-        android:id="@+id/DataFaturacaoLabelTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:text="Data de faturação:"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
-
-    <TextView
-        android:id="@+id/DataFaturacaoValueTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2024-11-16 13:57:55"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/DataFaturacaoLabelTxt"
-        app:layout_constraintTop_toBottomOf="@+id/DataFaturacaoLabelTxt" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/PaymentShippingSection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <!-- Shipping Method Section (Bottom Left Corner) -->
-        <TextView
-            android:id="@+id/MetodoExpedicaoLabelTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Método de Expedição:"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/MetodoExpedicaoValueTxt"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/MetodoExpedicaoValueTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Envio para Portugal Continental"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <!-- Payment Method Section (Bottom Right Corner) -->
-        <TextView
-            android:id="@+id/MetodoPagamentoLabelTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Método de Pagamento:"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/MetodoPagamentoValueTxt"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/MetodoPagamentoValueTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Visa/MasterCard"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/MetodoPagamentoLabelTxt" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </TableRow>
+</TableLayout>

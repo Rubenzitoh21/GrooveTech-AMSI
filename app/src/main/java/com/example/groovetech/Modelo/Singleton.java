@@ -26,6 +26,7 @@ import com.example.groovetech.listeners.FaturasListener;
 import com.example.groovetech.listeners.HomeProdutosListener;
 import com.example.groovetech.listeners.HomeProdutosSearchListener;
 import com.example.groovetech.listeners.LinhasCarrinhoListener;
+import com.example.groovetech.listeners.LinhasFaturasListener;
 import com.example.groovetech.listeners.LoginListener;
 import com.example.groovetech.listeners.PagamentosListener;
 import com.example.groovetech.listeners.PerfilEditListener;
@@ -35,6 +36,7 @@ import com.example.groovetech.utils.CarrinhoJsonParser;
 import com.example.groovetech.utils.ExpedicoesJsonParser;
 import com.example.groovetech.utils.FaturasJsonParser;
 import com.example.groovetech.utils.LinhaCarrinhoJsonParser;
+import com.example.groovetech.utils.LinhasFaturasJsonParser;
 import com.example.groovetech.utils.LoginAndSignupJsonParser;
 import com.example.groovetech.utils.PagamentosJsonParser;
 import com.example.groovetech.utils.ProdutoJsonParser;
@@ -44,7 +46,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,6 +58,9 @@ public class Singleton {
     private Utilizador utilizador;
 
     private Perfil perfil;
+
+    private int selectedPagamentoID;
+    private int selectedExpedicaoID;
 
     private Carrinho carrinho;
 
@@ -866,6 +870,64 @@ public class Singleton {
         }
     }
 
+    public void getLinhasFaturasByFaturaIdAPI(Context context, final LinhasFaturasListener linhasfaturasListener, Fatura fatura) {
+        if (!isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_SHORT).show();
+
+        } else {
+
+            String url = UrlAPIgetLinhasFaturasByFaturaId(context) + fatura.getId();
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONArray>() {
+
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            Log.d("LINHAS FATURAS", "Raw Response: " + response.toString());
+                            listaLinhasFaturas = LinhasFaturasJsonParser.parserJsonLinhasFaturas(response);
+
+                            setListaLinhasFaturas(listaLinhasFaturas);
+
+                            if (linhasfaturasListener != null) {
+                                linhasfaturasListener.onListaLinhasFaturasLoaded(listaLinhasFaturas);
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if (error.networkResponse != null) {
+                        String responseBody = new String(error.networkResponse.data);
+
+                        JSONObject jsonResponse = null;
+                        try {
+                            jsonResponse = new JSONObject(responseBody);
+                            JSONObject errorObj = jsonResponse.optJSONObject("error");
+
+                            if (errorObj != null) {
+                                String errorMessage = errorObj.optString("message");
+                                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Authorization", "Bearer " + getToken(context));
+
+                    return headers;
+                }
+            };
+
+            volleyQueue.add(req);
+        }
+    }
+
+
     public void createFaturaAndLinhasFaturaAPI(Context context, int pagamento_id, int expedicao_id) {
         if (!isConnectionInternet(context)) {
             Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_SHORT).show();
@@ -983,6 +1045,10 @@ public class Singleton {
         return "http://" + getApiIP(context) + "/api/fatura/all/" + getUserId(context);
     }
 
+    private String UrlAPIgetLinhasFaturasByFaturaId(Context context) {
+        return "http://" + getApiIP(context) + "/api/linhas-fatura/linhafatura/";
+    }
+
 
     public void saveUserPreferences(Context context, int userId, String token, String username) {
         SharedPreferences preferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
@@ -1005,6 +1071,14 @@ public class Singleton {
         return this.carrinho;
     }
 
+    public int getSelectedPagamentoID() {
+        return selectedPagamentoID;
+    }
+
+    public int getSelectedExpedicaoID() {
+        return selectedExpedicaoID;
+    }
+
     public ArrayList<Fatura> getListaFaturas() {
         return listaFaturas;
     }
@@ -1021,6 +1095,10 @@ public class Singleton {
         return listaExpedicoes;
     }
 
+    public ArrayList<LinhasFaturas> getListaLinhasFaturas() {
+        return listaLinhasFaturas;
+    }
+
     public ArrayList<Produto> getSearchedProdutos() {
         return searchedProdutos;
     }
@@ -1030,7 +1108,7 @@ public class Singleton {
     }
 
     // buscar o produto pelo id para adicionar na linha do carrinho
-    public Produto searchProdutoToLinhaCarrinho(int id) {
+    public Produto searchProdutoByID(int id) {
         for (Produto produto : listaProdutos) {
             if (produto.getId() == id) {
                 return produto;
@@ -1039,8 +1117,30 @@ public class Singleton {
         return null;
     }
 
+    // buscar o id da fatura nas linhas faturas
+    public Fatura searchFaturaToLinhasFaturas(int id) {
+        for (Fatura fatura : listaFaturas) {
+            if (fatura.getId() == id) {
+                return fatura;
+            }
+        }
+        return null;
+    }
+
+    public void setSelectedPagamentoID(int id) {
+        this.selectedPagamentoID = id;
+    }
+
+    public void setSelectedExpedicaoID(int id) {
+        this.selectedExpedicaoID = id;
+    }
+
     public void setListaFaturas(ArrayList<Fatura> listaFaturas) {
         this.listaFaturas = listaFaturas;
+    }
+
+    public void setListaLinhasFaturas(ArrayList<LinhasFaturas> listaLinhasFaturas) {
+        this.listaLinhasFaturas = listaLinhasFaturas;
     }
 
     public void setListaProdutos(ArrayList<Produto> listaProdutos) {

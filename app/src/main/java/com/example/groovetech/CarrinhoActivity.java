@@ -33,7 +33,10 @@ public class CarrinhoActivity extends AppCompatActivity implements LinhasCarrinh
 
         binding = ActivityCarrinhoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.progressBar.setVisibility(View.VISIBLE);
         binding.backButton.setOnClickListener(v -> onBackPressed());
+        //Cria o carrinho
+        Singleton.getInstance(this).createCarrinhoAPI(this);
         Singleton.getInstance(getApplicationContext()).getLinhasCarrinhoAPI(getApplicationContext(), this);
         Singleton.getInstance(getApplicationContext()).getCarrinhoAPI(this, this);
 
@@ -71,6 +74,7 @@ public class CarrinhoActivity extends AppCompatActivity implements LinhasCarrinh
     public void onCarrinhoDataLoaded(Carrinho carrinho) {
 
         carrinhoUpdateUI(carrinho);
+        binding.progressBar.setVisibility(View.VISIBLE);
         if (carrinho.getValorTotal() == 0) {
             binding.btnFinalizarEncomenda.setVisibility(View.GONE);
             Toast.makeText(this, "O carrinho está vazio", Toast.LENGTH_SHORT).show();

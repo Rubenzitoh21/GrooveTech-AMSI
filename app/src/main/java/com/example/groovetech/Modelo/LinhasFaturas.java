@@ -3,101 +3,74 @@ package com.example.groovetech.Modelo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class LinhasFaturas implements Parcelable {
-    private int quantidade, iva;
-    private String nomeProduto;
-    private float valor, valor_iva, total;
+public class LinhasFaturas {
+    private int id, quantidade, faturas_id, produtos_id;
+    private float preco_venda, valor_iva, subtotal;
 
-    public LinhasFaturas(int quantidade, int iva, String nomeProduto, float valor, float valor_iva, float total) {
+    public LinhasFaturas(int id, int quantidade, float preco_venda, float valor_iva, float subtotal, int faturas_id, int produtos_id) {
+        this.id = id;
         this.quantidade = quantidade;
-        this.iva = iva;
-        this.nomeProduto = nomeProduto;
-        this.valor = valor;
+        this.preco_venda = preco_venda;
         this.valor_iva = valor_iva;
-        this.total = total;
+        this.subtotal = subtotal;
+        this.faturas_id = faturas_id;
+        this.produtos_id = produtos_id;
     }
 
-    protected LinhasFaturas(Parcel in) {
-        quantidade = in.readInt();
-        iva = in.readInt();
-        nomeProduto = in.readString();
-        valor = in.readFloat();
-        valor_iva = in.readFloat();
-        total = in.readFloat();
-    }
-
-
-
-    public int getQuantidade() {
-        return quantidade;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 
-    public int getIva() {
-        return iva;
+    public void setFaturas_id(int faturas_id) {
+        this.faturas_id = faturas_id;
     }
 
-    public void setIva(int iva) {
-        this.iva = iva;
+    public void setProdutos_id(int produtos_id) {
+        this.produtos_id = produtos_id;
     }
 
-    public String getNomeProduto() {
-        return nomeProduto;
-    }
 
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
-    }
-
-    public float getValor() {
-        return valor;
-    }
-
-    public void setValor(float valor) {
-        this.valor = valor;
-    }
-
-    public float getValor_iva() {
-        return valor_iva;
+    public void setPreco_venda(float preco_venda) {
+        this.preco_venda = preco_venda;
     }
 
     public void setValor_iva(float valor_iva) {
         this.valor_iva = valor_iva;
     }
 
-    public float getTotal() {
-        return total;
+    public void setSubtotal(float subtotal) {
+        this.subtotal = subtotal;
     }
 
-    public void setTotal(float total) {
-        this.total = total;
+    public int getId() {
+        return id;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public int getQuantidade() {
+        return quantidade;
     }
-    public static final Creator<LinhasFaturas> CREATOR = new Creator<LinhasFaturas>() {
-        @Override
-        public LinhasFaturas createFromParcel(Parcel in) {
-            return new LinhasFaturas(in);
-        }
 
-        @Override
-        public LinhasFaturas[] newArray(int size) {
-            return new LinhasFaturas[size];
-        }
-    };
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(quantidade);
-        dest.writeInt(iva);
-        dest.writeString(nomeProduto);
-        dest.writeFloat(valor);
-        dest.writeFloat(valor_iva);
-        dest.writeFloat(total);
+    public int getFaturas_id() {
+        return faturas_id;
+    }
+
+    public int getProdutos_id() {
+        return produtos_id;
+    }
+
+    public float getPreco_venda() {
+        return preco_venda;
+    }
+
+    public float getValor_iva() {
+        return valor_iva;
+    }
+
+    public float getSubtotal() {
+        return subtotal;
     }
 }

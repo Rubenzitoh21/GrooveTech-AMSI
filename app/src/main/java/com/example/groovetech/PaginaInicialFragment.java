@@ -55,9 +55,6 @@ public class PaginaInicialFragment extends Fragment implements HomeProdutosListe
         // Vai buscar a lista de produtos à API
         Singleton.getInstance(getContext()).getAllProdutosAPI(requireContext().getApplicationContext(), this);
 
-        //Cria o carrinho
-        Singleton.getInstance(getContext()).createCarrinhoAPI(requireContext().getApplicationContext());
-
         String username = getUsername();
         if (username == null) {
             return;

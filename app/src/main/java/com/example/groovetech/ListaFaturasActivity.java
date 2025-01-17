@@ -15,6 +15,7 @@ import com.example.groovetech.listeners.FaturaListener;
 import com.example.groovetech.listeners.FaturasListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class ListaFaturasActivity extends AppCompatActivity implements FaturasListener, FaturaListener {
@@ -35,16 +36,20 @@ public class ListaFaturasActivity extends AppCompatActivity implements FaturasLi
 
     @Override
     public void onFaturasDataLoaded(ArrayList<Fatura> listaFaturas) {
+
+        // Reverte a ordem das faturas para mostrar a mais recente primeiro
+        Collections.reverse(listaFaturas);
+
         adapter = new ListaFaturasAdaptador(this, listaFaturas, this);
         binding.rvListaFaturas.setLayoutManager(new GridLayoutManager(this, 1));
         binding.rvListaFaturas.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
-
     }
 
     @Override
     public void onFaturaClick(int position, Fatura fatura) {
-
+        Intent intent = new Intent(this, FaturaActivity.class);
+        intent.putExtra("faturaID", fatura.getId());
+        startActivity(intent);
     }
 }

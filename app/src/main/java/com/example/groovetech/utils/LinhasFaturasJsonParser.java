@@ -18,13 +18,13 @@ public class LinhasFaturasJsonParser {
                 JSONObject linhaJson = (JSONObject) response.get(i);
                 int id = linhaJson.getInt("id");
                 int quantidade = linhaJson.getInt("quantidade");
-                int iva = linhaJson.getInt("iva");
-                String nomeProduto = linhaJson.getString("nome_produto");
-                float valor = (float) linhaJson.getDouble("valor");
-                float valor_iva = (float) linhaJson.getDouble("valor_iva");
-                float total = (float) linhaJson.getDouble("total");
+                float preco_venda = (float) linhaJson.getDouble("preco_venda");
+                int iva = linhaJson.getInt("valor_iva");
+                float subtotal = (float) linhaJson.getDouble("subtotal");
+                int faturas_id = linhaJson.getInt("faturas_id");
+                int produtos_id = linhaJson.getInt("produtos_id");
 
-                LinhasFaturas linha = new LinhasFaturas(quantidade, iva, nomeProduto, valor, valor_iva, total);
+                LinhasFaturas linha = new LinhasFaturas(id, quantidade, preco_venda, iva, subtotal, faturas_id, produtos_id);
                 linhasFaturas.add(linha);
             }
         } catch (JSONException e) {

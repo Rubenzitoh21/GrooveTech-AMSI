@@ -1,9 +1,7 @@
 package com.example.groovetech.adaptadores;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +56,7 @@ public class LinhasCarrinhoAdaptador extends RecyclerView.Adapter<LinhasCarrinho
         LinhaCarrinho linhaCarrinho = linhasCarrinho.get(position);
 
         int ProdutoID = linhaCarrinho.getProdutoID();
-        Produto produto = Singleton.getInstance(context).searchProdutoToLinhaCarrinho(ProdutoID);
+        Produto produto = Singleton.getInstance(context).searchProdutoByID(ProdutoID);
         if (produto == null) {
             return;
         }
