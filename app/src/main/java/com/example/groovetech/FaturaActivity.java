@@ -55,10 +55,9 @@ public class FaturaActivity extends AppCompatActivity implements LinhasFaturasLi
 
     private void fillLinhaFaturaUI() {
         // Define os valores da fatura
-        Float valorTotal = subTotalLinhas + totalIvaLinhas;
         binding.FaturaidTxt.setText(String.format("Fatura# %d", fatura.getId()));
         binding.DataFaturacaoValueTxt.setText(fatura.getData());
-        binding.TotalValueTxt.setText(String.format("%.2f €", valorTotal));
+        binding.TotalValueTxt.setText(String.format("%.2f €", fatura.getValorTotal()));
         binding.SubTotalValueTxt.setText(String.format("%.2f €", subTotalLinhas));
         binding.IvaTotalValueTxt.setText(String.format("%.2f €", totalIvaLinhas));
 

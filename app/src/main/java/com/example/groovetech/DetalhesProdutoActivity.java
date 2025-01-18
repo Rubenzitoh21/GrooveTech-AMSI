@@ -78,7 +78,7 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
         if (produto != null) {
             binding.nomeTxt.setText(produto.getNome());
             binding.categoriaTxt.setText(produto.getCategoria());
-            binding.precoTxt.setText(produto.getPreco() + "€");
+            binding.precoTxt.setText(String.format("%.2f", produto.getPreco()) + "€");
             binding.tvDescricaoProduto.setText(produto.getDescricao());
 
             String imageUrl = "http://172.22.21.211:80/images/" + produto.getImagem();
