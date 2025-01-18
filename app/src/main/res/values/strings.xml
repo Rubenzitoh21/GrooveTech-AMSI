@@ -105,5 +105,34 @@
     <string name="metodo_pagamento_selecionado">"Método de pagamento selecionado: "</string>
     <string name="metodo_expedicao_selecionado">"Método de expedicao selecionado: "</string>
     <string name="encomenda_finalizada_com_sucesso">Encomenda finalizada com sucesso</string>
+    <string name="fatura">Fatura #90</string>
+    <string name="fatura_seccao_De">De:</string>
+    <string name="empresa">GrooveTech</string>
+    <string name="email_empresa_fatura">groovetech@mail.com</string>
+    <string name="rua_fatura_campo">Rua Morro Lena, Alto Do Vieiro</string>
+    <string name="cp_fatura_campo">2411-901 Leiria</string>
+    <string name="telemovel_fatura_campo">244111222</string>
+    <string name="dataFaturacao_nome_fatura">Data de faturação:</string>
+    <string name="dataFaturação_campo_fatura">2024-11-16 13:57:55</string>
+    <string name="titulo_tabela_fatura">Resumo da compra</string>
+    <string name="coluna_produto_tabela">Produto</string>
+    <string name="coluna_preco_tabela">Preço</string>
+    <string name="coluna_quantidade_tabela">Quantidade</string>
+    <string name="coluna_subtotal_tabela">Sub-Total</string>
+    <string name="subtotal_fatura_nome">Sub-Total:</string>
+    <string name="subtotal_campo_fatura">Valor</string>
+    <string name="totaliva_nome_fatura">Iva:</string>
+    <string name="totaliva_campo_fatura">Valor</string>
+    <string name="total_nome_fatura">Total:</string>
+    <string name="valortotal_campo_fatura">Valor</string>
+    <string name="metodo_expedicao_nome_fatura">Método de Expedição:</string>
+    <string name="metodo_expedicao_campo_fatura">Envio para Portugal Continental</string>
+    <string name="metodo_pagamento_nome_fatura">Método de Pagamento:</string>
+    <string name="metodo_pagamento_campo_fatura">Visa/MasterCard</string>
+    <string name="perfil_hint_selecionarData">Selecionar data</string>
+    <string name="bottom_nav_paginaInicial">Página Inicial</string>
+    <string name="bottom_nav_carrinho">Carrinho</string>
+    <string name="bottom_nav_perfil">Perfil</string>
+    <string name="bottom_nav_favoritos">Favoritos</string>
 
 </resources>

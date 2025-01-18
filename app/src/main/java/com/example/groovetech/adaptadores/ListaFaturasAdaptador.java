@@ -1,5 +1,6 @@
 package com.example.groovetech.adaptadores;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,12 +37,13 @@ public class ListaFaturasAdaptador extends RecyclerView.Adapter<ListaFaturasAdap
         return new ViewHolder(binding.getRoot(), binding);
     }
 
+    @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Fatura fatura = faturas.get(position);
         holder.binding.tvNomeFatura.setText("Fatura: " + fatura.getId());
         holder.binding.tvDataFatura.setText(fatura.getData());
-        holder.binding.tvValorFatura.setText(fatura.getValorTotal() + " €");
+        holder.binding.tvValorFatura.setText(String.format("%.2f €", fatura.getValorTotal()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

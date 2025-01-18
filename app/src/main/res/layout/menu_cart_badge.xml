@@ -7,8 +7,7 @@
         android:id="@+id/cart_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/cart_icon_bottom_bar"
-        android:contentDescription="Carrinho" />
+        android:src="@drawable/cart_icon_bottom_bar" />
 
     <!-- Badge Text -->
     <TextView
@@ -17,7 +16,6 @@
         android:layout_height="18dp"
         android:background="@drawable/badge_background"
         android:gravity="center"
-        android:text="3"
         android:textColor="@android:color/white"
         android:textSize="12sp"
         android:visibility="gone"
