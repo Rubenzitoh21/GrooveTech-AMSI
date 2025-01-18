@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,10 +17,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.groovetech.Modelo.Produto;
 import com.example.groovetech.Modelo.Singleton;
@@ -27,6 +35,7 @@ import com.example.groovetech.adaptadores.HomeProdutosAdaptador;
 import com.example.groovetech.databinding.FragmentPaginaInicialBinding;
 import com.example.groovetech.listeners.HomeProdutosListener;
 import com.example.groovetech.listeners.HomeProdutosSearchListener;
+import com.google.android.material.badge.BadgeDrawable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,12 +46,14 @@ public class PaginaInicialFragment extends Fragment implements HomeProdutosListe
     private FragmentPaginaInicialBinding binding;
     private SharedPreferences preferences;
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         // Inicialização do View Binding
         binding = FragmentPaginaInicialBinding.inflate(inflater, container, false);
         return binding.getRoot();
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -93,8 +104,6 @@ public class PaginaInicialFragment extends Fragment implements HomeProdutosListe
             }
 
         });
-
-
     }
 
     @Override

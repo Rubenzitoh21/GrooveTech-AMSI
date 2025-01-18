@@ -44,10 +44,6 @@ public class CheckoutActivity extends AppCompatActivity implements PagamentosLis
             Singleton.getInstance(getApplicationContext()).createFaturaAndLinhasFaturaAPI(getApplicationContext(), selectedPagamentoID,
                     selectedExpedicaoID);
 
-            // Guardar o id do pagamento e da expedicao selecionados
-            Singleton.getInstance(getApplicationContext()).setSelectedPagamentoID(selectedPagamentoID);
-            Singleton.getInstance(getApplicationContext()).setSelectedExpedicaoID(selectedExpedicaoID);
-
             Toast.makeText(getApplicationContext(), getString(R.string.encomenda_finalizada_com_sucesso), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);

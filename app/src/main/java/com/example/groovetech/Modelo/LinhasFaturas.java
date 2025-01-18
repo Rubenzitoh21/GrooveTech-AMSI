@@ -5,9 +5,10 @@ import android.os.Parcelable;
 
 public class LinhasFaturas {
     private int id, quantidade, faturas_id, produtos_id;
-    private float preco_venda, valor_iva, subtotal;
+    private float preco_venda, valor_iva, subtotal, subtotalLinhas, valorTotalIva;
 
-    public LinhasFaturas(int id, int quantidade, float preco_venda, float valor_iva, float subtotal, int faturas_id, int produtos_id) {
+    public LinhasFaturas(int id, int quantidade, float preco_venda, float valor_iva, float subtotal,
+                         int faturas_id, int produtos_id) {
         this.id = id;
         this.quantidade = quantidade;
         this.preco_venda = preco_venda;
@@ -15,6 +16,22 @@ public class LinhasFaturas {
         this.subtotal = subtotal;
         this.faturas_id = faturas_id;
         this.produtos_id = produtos_id;
+    }
+
+    public void setSubtotalLinhas(float subtotalLinhas) {
+        this.subtotalLinhas = subtotalLinhas;
+    }
+
+    public void setValorTotalIva(float valorTotalIva) {
+        this.valorTotalIva = valorTotalIva;
+    }
+
+    public float getSubtotalLinhas() {
+        return subtotalLinhas;
+    }
+
+    public float getValorTotalIva() {
+        return valorTotalIva;
     }
 
     public void setId(int id) {

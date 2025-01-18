@@ -283,6 +283,7 @@
                     android:text="Sub-Total:"
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toStartOf="@+id/SubTotalValueTxt"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -291,6 +292,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:textSize="15sp"
                     android:text="Valor"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@+id/SubTotalLabelTxt"
@@ -304,6 +306,7 @@
                     android:text="Iva:"
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="@+id/SubTotalLabelTxt"
                     app:layout_constraintTop_toBottomOf="@+id/SubTotalLabelTxt" />
 
@@ -312,6 +315,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:textSize="15sp"
                     android:text="Valor"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@+id/IvaTotalLabelTxt"
@@ -325,6 +329,7 @@
                     android:text="Total:"
                     android:textColor="@color/black"
                     android:textStyle="bold"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="@+id/SubTotalLabelTxt"
                     app:layout_constraintTop_toBottomOf="@+id/IvaTotalLabelTxt" />
 
@@ -333,6 +338,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:textSize="15sp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="Valor"

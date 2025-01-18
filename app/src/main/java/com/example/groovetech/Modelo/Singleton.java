@@ -37,6 +37,7 @@ import com.example.groovetech.utils.ExpedicoesJsonParser;
 import com.example.groovetech.utils.FaturasJsonParser;
 import com.example.groovetech.utils.LinhaCarrinhoJsonParser;
 import com.example.groovetech.utils.LinhasFaturasJsonParser;
+import com.example.groovetech.utils.LinhasFaturasTotaisJsonParser;
 import com.example.groovetech.utils.LoginAndSignupJsonParser;
 import com.example.groovetech.utils.PagamentosJsonParser;
 import com.example.groovetech.utils.ProdutoJsonParser;
@@ -58,9 +59,6 @@ public class Singleton {
     private Utilizador utilizador;
 
     private Perfil perfil;
-
-    private int selectedPagamentoID;
-    private int selectedExpedicaoID;
 
     private Carrinho carrinho;
 
@@ -885,10 +883,17 @@ public class Singleton {
                             Log.d("LINHAS FATURAS", "Raw Response: " + response.toString());
                             listaLinhasFaturas = LinhasFaturasJsonParser.parserJsonLinhasFaturas(response);
 
+                            // Usar o LinhasFaturasTotaisJsonParser para obter o total das linhas das faturas
+                            // Única forma Que encontrei para obter o total das linhas das faturas
+                            LinhasFaturasTotais totals = LinhasFaturasTotaisJsonParser.parserJsonTotals(response);
+                            float totalIvaLinhas = LinhasFaturasTotais.getTotalIva();
+                            float subTotalLinhas = LinhasFaturasTotais.getSubTotalLinhas();
+
+
                             setListaLinhasFaturas(listaLinhasFaturas);
 
                             if (linhasfaturasListener != null) {
-                                linhasfaturasListener.onListaLinhasFaturasLoaded(listaLinhasFaturas);
+                                linhasfaturasListener.onListaLinhasFaturasLoaded(listaLinhasFaturas, totalIvaLinhas, subTotalLinhas);
                             }
 
                         }
@@ -1026,7 +1031,7 @@ public class Singleton {
     }
 
     private String UrlAPIdeleteLinhaCarrinho(Context context) {
-        return "http://" + getApiIP(context) + "/api/produtos-carrinho/delete/";
+        return "http://" + getApiIP(context) + "/api/produtos-carrinho/cartline/";
     }
 
     private String UrlAPIgetPagamentos(Context context) {
@@ -1069,14 +1074,6 @@ public class Singleton {
 
     public Carrinho getCarrinho() {
         return this.carrinho;
-    }
-
-    public int getSelectedPagamentoID() {
-        return selectedPagamentoID;
-    }
-
-    public int getSelectedExpedicaoID() {
-        return selectedExpedicaoID;
     }
 
     public ArrayList<Fatura> getListaFaturas() {
@@ -1125,14 +1122,6 @@ public class Singleton {
             }
         }
         return null;
-    }
-
-    public void setSelectedPagamentoID(int id) {
-        this.selectedPagamentoID = id;
-    }
-
-    public void setSelectedExpedicaoID(int id) {
-        this.selectedExpedicaoID = id;
     }
 
     public void setListaFaturas(ArrayList<Fatura> listaFaturas) {

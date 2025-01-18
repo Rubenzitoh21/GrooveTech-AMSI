@@ -130,7 +130,7 @@ public class LinhasCarrinhoAdaptador extends RecyclerView.Adapter<LinhasCarrinho
                 linhasCarrinho.remove(currentPosition);
                 notifyItemRemoved(currentPosition);
                 Singleton.getInstance(context).getCarrinhoAPI(context, null);
-//                Singleton.getInstance(context).getLinhasCarrinhoAPI(context, null);
+                Singleton.getInstance(context).getLinhasCarrinhoAPI(context, null);
 
                 if (listenerDelete != null) {
                     listenerDelete.onDeletedLinhaCarrinho();

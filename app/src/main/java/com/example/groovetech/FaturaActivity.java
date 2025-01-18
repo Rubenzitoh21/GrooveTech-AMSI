@@ -3,8 +3,10 @@ package com.example.groovetech;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+
 import com.example.groovetech.Modelo.Expedicao;
 import com.example.groovetech.Modelo.Fatura;
 import com.example.groovetech.Modelo.LinhasFaturas;
@@ -25,6 +27,7 @@ public class FaturaActivity extends AppCompatActivity implements LinhasFaturasLi
     private Fatura fatura;
     private String metodoExpedicao, metodoPagamento;
     private boolean isExpedicaoLoaded = false, isPagamentoLoaded = false;
+    private float totalIvaLinhas, subTotalLinhas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +54,24 @@ public class FaturaActivity extends AppCompatActivity implements LinhasFaturasLi
     }
 
     private void fillLinhaFaturaUI() {
+        // Define os valores da fatura
+        Float valorTotal = subTotalLinhas + totalIvaLinhas;
         binding.FaturaidTxt.setText(String.format("Fatura# %d", fatura.getId()));
         binding.DataFaturacaoValueTxt.setText(fatura.getData());
-        binding.TotalValueTxt.setText(String.format("%.2f €", fatura.getValorTotal()));
+        binding.TotalValueTxt.setText(String.format("%.2f €", valorTotal));
+        binding.SubTotalValueTxt.setText(String.format("%.2f €", subTotalLinhas));
+        binding.IvaTotalValueTxt.setText(String.format("%.2f €", totalIvaLinhas));
 
-        // Define os métodos de expedição e pagamento
+        // Define os valores dos métodos de expedição e pagamento
         binding.MetodoExpedicaoValueTxt.setText(metodoExpedicao != null ? metodoExpedicao : "Não Definido");
         binding.MetodoPagamentoValueTxt.setText(metodoPagamento != null ? metodoPagamento : "Não Definido");
     }
 
     @Override
-    public void onListaLinhasFaturasLoaded(ArrayList<LinhasFaturas> linhasFaturas) {
+    public void onListaLinhasFaturasLoaded(ArrayList<LinhasFaturas> linhasFaturas, float totalIva, float subTotalLinhas) {
+        this.totalIvaLinhas = totalIva;
+        this.subTotalLinhas = subTotalLinhas;
+
         binding.recyclerViewLinhasFatura.setLayoutManager(new GridLayoutManager(this, 1));
         adapter = new LinhasFaturasAdaptador(this, linhasFaturas);
         binding.recyclerViewLinhasFatura.setAdapter(adapter);

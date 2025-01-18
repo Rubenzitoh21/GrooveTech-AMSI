@@ -22,7 +22,7 @@ public class SignupActivity extends AppCompatActivity implements SignupListener 
 
     public static final String TOKEN = "token";
     public static final String USERNAME = "username";
-    private static final int MIN_PASS = 4;
+    private static final int MIN_PASS = 6;
 
     private ActivitySignupBinding binding;
 
@@ -61,10 +61,10 @@ public class SignupActivity extends AppCompatActivity implements SignupListener 
             return;
         }
         if (!isPasswordValida(password)) {
-            binding.etPassword.setError("Password inválida");
+            binding.etPassword.setError("Password inválida deve conter pelo menos " + MIN_PASS + " caracteres");
             return;
         }
-        Singleton.getInstance(this).signupAPI(username, email, password, getApplicationContext(), this);
+        Singleton.getInstance(this).signupAPI(username, password, email, getApplicationContext(), this);
     }
 
     public void goToLoginClick(View view) {
