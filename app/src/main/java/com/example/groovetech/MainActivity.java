@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.groovetech.Modelo.Singleton;
 import com.example.groovetech.databinding.ActivityMainBinding;
+import com.google.android.material.badge.BadgeDrawable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +30,37 @@ public class MainActivity extends AppCompatActivity {
 
         // Setup BottomNavigationView listener
         binding.bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
+
+//        updateCartBadge();
+
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateCartBadge();
+    }
+
+    public void updateCartBadge() {
+        BadgeDrawable badge = binding.bottomNavigationView.getOrCreateBadge(R.id.carrinho);
+        Singleton.getInstance(getApplicationContext()).getLinhasCarrinhoAPI(getApplicationContext(), linhasCarrinho -> {
+            int total = 0;
+            for (int i = 0; i < linhasCarrinho.size(); i++) {
+                total += linhasCarrinho.get(i).getQuantidade();
+            }
+
+            badge.setNumber(total);
+
+
+            if (total > 0) {
+                badge.setVisible(true);
+            } else {
+                badge.setVisible(false);
+                badge.clearNumber();
+            }
+        });
+    }
+
 
     private boolean onNavigationItemSelected(@NonNull android.view.MenuItem item) {
         int itemId = item.getItemId();
