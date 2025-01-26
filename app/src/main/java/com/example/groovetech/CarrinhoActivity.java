@@ -35,7 +35,6 @@ public class CarrinhoActivity extends AppCompatActivity implements LinhasCarrinh
         setContentView(binding.getRoot());
         binding.progressBar.setVisibility(View.VISIBLE);
         binding.backButton.setOnClickListener(v -> onBackPressed());
-        Singleton.getInstance(getApplicationContext()).createCarrinhoAPI(this);
         Singleton.getInstance(getApplicationContext()).getLinhasCarrinhoAPI(getApplicationContext(), this);
         Singleton.getInstance(getApplicationContext()).getCarrinhoAPI(this, this);
 
@@ -51,6 +50,11 @@ public class CarrinhoActivity extends AppCompatActivity implements LinhasCarrinh
     public void onListaLinhasCarrinhoLoaded(ArrayList<LinhaCarrinho> linhasCarrinho) {
         this.linhasCarrinho = linhasCarrinho;
 
+        if(linhasCarrinho.size() != 0){
+            binding.btnFinalizarEncomenda.setEnabled(true);
+
+
+        }
         // Configura o RecyclerView para mostrar as linhas do carrinho
         binding.rvListaLinhaCarrinho.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
 

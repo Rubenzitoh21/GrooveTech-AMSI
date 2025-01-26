@@ -30,8 +30,8 @@
                     android:elevation="10dp"
                     android:padding="10dp"
                     android:src="@drawable/arrow_back"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -51,7 +51,6 @@
                     app:layout_constraintVertical_bias="0.5" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
             <FrameLayout
@@ -79,8 +78,8 @@
                 android:id="@+id/textView20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="45dp"
                 android:layout_marginStart="6dp"
+                android:layout_marginTop="45dp"
                 android:layout_marginBottom="2dp"
                 android:text="@string/txt_sumario_encomenda"
                 android:textColor="@color/text_color"
@@ -163,6 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/blue_button_background"
+                android:enabled="false"
                 android:text="@string/btn_finalizar_encomenda"
                 android:textColor="@color/white"
                 android:textSize="18sp" />

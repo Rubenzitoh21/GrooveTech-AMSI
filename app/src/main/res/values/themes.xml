@@ -3,8 +3,10 @@
     <!-- Base application theme. -->
     <style name="Theme.GrooveTech.NoActionBar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/MainThemeColor</item>
-        <item name="windowActionBar">false</item>
+        <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
+        //disable action bar
+        <item name="android:windowActionBar">false</item>
     </style>
 
     <!-- Text Styles -->

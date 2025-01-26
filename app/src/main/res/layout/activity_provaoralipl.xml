@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DefesaActivity">
+    tools:context=".ProvaOralIPL">
 
     <TextView
         android:id="@+id/textView2"
@@ -13,7 +13,17 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="24sp"
+
+        app:layout_constraintEnd_toEndOf="@+id/buttonipl"
+        app:layout_constraintStart_toStartOf="@+id/buttonipl"
+        app:layout_constraintTop_toBottomOf="@+id/buttonipl" />
+
+    <Button
+        android:id="@+id/buttonipl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Obter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="262dp" />
+        tools:layout_editor_absoluteY="343dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

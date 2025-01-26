@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // Verificar se o utilizador já tem token guardado
         if (HasUserToken(this)) {
             redirectToMainActivity();
