@@ -8,17 +8,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.groovetech.Modelo.Singleton;
 import com.example.groovetech.Modelo.Utilizador;
 import com.example.groovetech.databinding.ActivityLoginBinding;
 import com.example.groovetech.listeners.LoginListener;
-import com.example.groovetech.listeners.SignupListener;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
 
@@ -33,9 +28,10 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         // Verificar se o utilizador já tem token guardado
         if (HasUserToken(this)) {
+            String username = getUsername(this);
+            Singleton.getInstance(this).getLatestTokenAPI(this, username);
             redirectToMainActivity();
         } else {
             // Inicialização do View Binding
@@ -96,6 +92,17 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     public boolean HasUserToken(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
         return preferences.getString("user_token", null) != null;
+    }
+
+    public String getUserToken(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        return preferences.getString("user_token", null);
+    }
+
+    //get username
+    public String getUsername(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        return preferences.getString("username", null);
     }
 
     private void redirectToMainActivity() {

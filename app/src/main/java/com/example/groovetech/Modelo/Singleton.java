@@ -319,7 +319,7 @@ public class Singleton {
 
 
                         if (perfilListener != null) {
-                            perfilListener.onUpdateProfile(utilizadorAndPerfil);
+                            perfilListener.onProfileDataLoaded(utilizadorAndPerfil);
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -354,7 +354,7 @@ public class Singleton {
 
 
                         if (perfilEditListener != null) {
-                            perfilEditListener.onUpdateProfileEdit();
+                            perfilEditListener.onUpdateProfile();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -974,6 +974,59 @@ public class Singleton {
         volleyQueue.add(req);
     }
 
+    public void getLatestTokenAPI(Context context, String username) {
+        if (!isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_SHORT).show();
+        } else {
+            JSONObject json = new JSONObject();
+            try {
+                json.put("username", username);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, UrlAPIRefreshToken(context), json,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                            String newToken = null;
+                            int userId = 0;
+                            String username = null;
+                            try {
+                                newToken = response.getString("latest_token");
+
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                            saveUserToken(context, newToken);
+
+//                                if (refreshTokenListener != null) {
+//                                    refreshTokenListener.onRefreshSuccess(newToken);
+//                                }
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                                if (refreshTokenListener != null) {
+//                                    refreshTokenListener.onRefreshFailed();
+//                                }
+//                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, "Erro ao atualizar o token", Toast.LENGTH_SHORT).show();
+                    //display the http response
+                    if (error.networkResponse != null) {
+                        Log.e("ERROR REFRESH", "Response Body" + new String(error.networkResponse.data));
+                    }
+                }
+            });
+
+            volleyQueue.add(req);
+        }
+    }
+
     public static boolean isConnectionInternet(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -1054,6 +1107,9 @@ public class Singleton {
         return "http://" + getApiIP(context) + "/api/linhas-fatura/linhafatura/";
     }
 
+    private String UrlAPIRefreshToken(Context context) {
+        return "http://" + getApiIP(context) + "/api/auth/refresh/token";
+    }
 
     public void saveUserPreferences(Context context, int userId, String token, String username) {
         SharedPreferences preferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
@@ -1061,6 +1117,13 @@ public class Singleton {
         editor.putInt("user_id", userId);
         editor.putString("user_token", token);
         editor.putString("username", username);
+        editor.apply();
+    }
+
+    public void saveUserToken(Context context, String token) {
+        SharedPreferences preferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("user_token", token);
         editor.apply();
     }
 

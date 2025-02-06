@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         // Setup BottomNavigationView listener
         binding.bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
 
-//        updateCartBadge();
 
     }
 

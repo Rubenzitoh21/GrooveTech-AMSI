@@ -125,7 +125,7 @@ public class PerfilFragment extends Fragment implements PerfilListener {
     }
 
     @Override
-    public void onUpdateProfile(UtilizadorAndPerfil utilizadorAndPerfil) {
+    public void onProfileDataLoaded(UtilizadorAndPerfil utilizadorAndPerfil) {
         if (utilizadorAndPerfil == null || binding == null) return;
 
         this.utilizador = utilizadorAndPerfil.getUtilizador();

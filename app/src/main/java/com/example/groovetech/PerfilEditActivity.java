@@ -256,7 +256,7 @@ public class PerfilEditActivity extends AppCompatActivity implements PerfilEditL
 
 
     @Override
-    public void onUpdateProfileEdit() {
+    public void onUpdateProfile() {
         Toast.makeText(this, R.string.perfil_atualizado_sucesso, Toast.LENGTH_SHORT).show();
         finish();
     }

@@ -11,16 +11,21 @@ import com.example.groovetech.Modelo.Expedicao;
 import com.example.groovetech.Modelo.Fatura;
 import com.example.groovetech.Modelo.LinhasFaturas;
 import com.example.groovetech.Modelo.Pagamento;
+import com.example.groovetech.Modelo.Perfil;
 import com.example.groovetech.Modelo.Singleton;
+import com.example.groovetech.Modelo.Utilizador;
+import com.example.groovetech.Modelo.UtilizadorAndPerfil;
 import com.example.groovetech.adaptadores.LinhasFaturasAdaptador;
 import com.example.groovetech.databinding.ActivityFaturaBinding;
 import com.example.groovetech.listeners.ExpedicoesListener;
 import com.example.groovetech.listeners.LinhasFaturasListener;
 import com.example.groovetech.listeners.PagamentosListener;
+import com.example.groovetech.listeners.PerfilListener;
 
 import java.util.ArrayList;
 
-public class FaturaActivity extends AppCompatActivity implements LinhasFaturasListener, ExpedicoesListener, PagamentosListener {
+public class FaturaActivity extends AppCompatActivity implements LinhasFaturasListener, ExpedicoesListener, PagamentosListener,
+        PerfilListener {
 
     private ActivityFaturaBinding binding;
     private LinhasFaturasAdaptador adapter;
@@ -28,6 +33,8 @@ public class FaturaActivity extends AppCompatActivity implements LinhasFaturasLi
     private String metodoExpedicao, metodoPagamento;
     private boolean isExpedicaoLoaded = false, isPagamentoLoaded = false;
     private float totalIvaLinhas, subTotalLinhas;
+    private Perfil perfil;
+    private Utilizador utilizador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,7 @@ public class FaturaActivity extends AppCompatActivity implements LinhasFaturasLi
         // Inicializa as chamadas à API para obter expedicoes e pagamentos
         Singleton.getInstance(getApplicationContext()).getAllExpedicoesAPI(this, this);
         Singleton.getInstance(getApplicationContext()).getAllPagamentosAPI(this, this);
+        Singleton.getInstance(getApplicationContext()).getUserProfileAPI(this, this);
 
         // Obtém o ID da fatura a partir da Intent e pesquisa a fatura correspondente
         Intent intent = getIntent();
@@ -60,6 +68,12 @@ public class FaturaActivity extends AppCompatActivity implements LinhasFaturasLi
         binding.TotalValueTxt.setText(String.format("%.2f €", fatura.getValorTotal()));
         binding.SubTotalValueTxt.setText(String.format("%.2f €", subTotalLinhas));
         binding.IvaTotalValueTxt.setText(String.format("%.2f €", totalIvaLinhas));
+
+        // Define os valores do utilizador e do perfil
+        binding.NomeApelidoTxt.setText(String.format("%s %s", perfil.getPrimeironome(), perfil.getApelido()));
+        binding.RuaClienteTxt.setText(String.format("%s %s", perfil.getCodigopostal(), perfil.getRua()));
+        binding.EmailClienteTxt.setText(utilizador.getEmail());
+        binding.TelemovelClienteTxt.setText(perfil.getTelefone());
 
         // Define os valores dos métodos de expedição e pagamento
         binding.MetodoExpedicaoValueTxt.setText(metodoExpedicao != null ? metodoExpedicao : "Não Definido");
@@ -110,5 +124,16 @@ public class FaturaActivity extends AppCompatActivity implements LinhasFaturasLi
         if (isExpedicaoLoaded && isPagamentoLoaded) {
             fillLinhaFaturaUI();
         }
+    }
+
+    @Override
+    public void onProfileDataLoaded(UtilizadorAndPerfil utilizadorAndPerfil) {
+        // Define os valores do perfil e do utilizador
+        if (utilizadorAndPerfil == null) return;
+
+        utilizador = utilizadorAndPerfil.getUtilizador();
+        perfil = utilizadorAndPerfil.getPerfil();
+
+
     }
 }

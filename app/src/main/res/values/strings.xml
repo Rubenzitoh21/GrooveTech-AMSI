@@ -134,5 +134,11 @@
     <string name="bottom_nav_carrinho">Carrinho</string>
     <string name="bottom_nav_perfil">Perfil</string>
     <string name="bottom_nav_favoritos">Favoritos</string>
+    <string name="nome_obrigatorio">Nome Obrigatório</string>
+    <string name="apelido_obrigatorio">Apelido Obrigatório</string>
+    <string name="localidade_obrigatoria">Localidade obrigatória</string>
+    <string name="rua_obrigatoria">Rua obrigatória</string>
+    <string name="codigopostal_obrigatorio">Código postal obrigatório</string>
+    <string name="telemovel_obrigatorio">Telemóvel obrigatório</string>
 
 </resources>

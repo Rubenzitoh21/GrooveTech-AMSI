@@ -1,84 +1,265 @@
-    <!-- activity_checkout.xml -->
+<!-- activity_checkout.xml -->
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CheckoutActivity">
+
+    <!-- User Billing Details Label -->
+    <TextView
+        android:id="@+id/textViewBillingDetails"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".CheckoutActivity">
-
-        <!-- User Billing Details Label -->
-        <TextView
-            android:id="@+id/textViewBillingDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_checkout"
-            android:textSize="18sp"
-            android:textAlignment="center"
-            android:padding="16dp"
-            android:textStyle="bold"
-            android:layout_alignParentTop="true"/>
-
-        <!-- Address List Label -->
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/txt_checkout"
+        android:textAlignment="center"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <!-- Existing RelativeLayout with Shipping, Payment, and Checkout elements -->
-        <RelativeLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".CheckoutActivity">
+
+        <!-- Shipping Method Label -->
+        <TextView
+            android:id="@+id/textViewShippingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/txt_metodo_de_envio" />
+
+        <!-- Shipping Method Spinner -->
+        <Spinner
+            android:id="@+id/spinnerExpedicao"
+            android:layout_width="188dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="61dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@id/textViewShippingLabel"
+            android:prompt="@string/select_shipping_method" />
+
+        <!-- Payment Method Label -->
+        <TextView
+            android:id="@+id/textViewPaymentLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spinnerExpedicao"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/txt_metodo_de_pagamento" />
+
+        <!-- Payment Method Spinner -->
+        <Spinner
+            android:id="@+id/SpinnerPagamento"
+            android:layout_width="188dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spinnerExpedicao"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@id/textViewPaymentLabel"
+            android:entries="@array/payment_methods"
+            android:prompt="@string/select_payment_method" />
+
+        <!-- New TextView for Billing Data -->
+        <TextView
+            android:id="@+id/textViewBillingData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/SpinnerPagamento"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Adicionar Dados De Faturação"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Label and EditText for Nome -->
+        <TextView
+            android:id="@+id/tvNomeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/etNome"
+            android:layout_centerHorizontal="true"
+            android:text="Primeiro Nome"
+            android:textColor="@color/dark_grey"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etNome"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".CheckoutActivity">
+            android:layout_height="45dp"
+            android:layout_below="@id/textViewBillingData"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:inputType="text"
+            android:padding="8dp"
+            android:textAlignment="center"
+            android:textColorHint="@color/MainThemeColor"
+            android:textSize="16sp" />
 
-            <!-- Shipping Method Label -->
-            <TextView
-                android:id="@+id/textViewShippingLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_metodo_de_envio"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"/>
+        <TextView
+            android:id="@+id/tvApelidoLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etNome"
+            android:layout_centerHorizontal="true"
+            android:text="Apelido"
+            android:textColor="@color/dark_grey"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-            <!-- Shipping Method Spinner -->
-            <Spinner
-                android:id="@+id/spinnerExpedicao"
-                android:layout_width="188dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="61dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_toEndOf="@id/textViewShippingLabel"
-                android:entries="@array/shipping_methods"
-                android:prompt="@string/select_shipping_method" />
+        <EditText
+            android:id="@+id/etApelido"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/etNome"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:inputType="text"
+            android:maxWidth="300dp"
+            android:padding="8dp"
+            android:textAlignment="center"
+            android:textColorHint="@color/MainThemeColor"
+            android:textSize="16sp" />
 
-            <!-- Payment Method Label -->
-            <TextView
-                android:id="@+id/textViewPaymentLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_metodo_de_pagamento"
-                android:layout_below="@id/spinnerExpedicao"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"/>
+        <TextView
+            android:id="@+id/tvCodigoPostalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etApelido"
+            android:layout_centerHorizontal="true"
+            android:text="Código Postal"
+            android:textColor="@color/dark_grey"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-            <!-- Payment Method Spinner -->
-            <Spinner
-                android:id="@+id/SpinnerPagamento"
-                android:layout_width="188dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/spinnerExpedicao"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="16dp"
-                android:layout_toEndOf="@id/textViewPaymentLabel"
-                android:entries="@array/payment_methods"
-                android:prompt="@string/select_payment_method" />
 
-            <!-- Proceed to Checkout Button -->
-            <Button
-                android:id="@+id/buttonProceedCheckout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_efetuar_encomenda"
-                android:layout_below="@id/SpinnerPagamento"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"/>
-        </RelativeLayout>
-    </LinearLayout>
+        <EditText
+            android:id="@+id/etCodigoPostal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/etApelido"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:inputType="text"
+            android:maxWidth="300dp"
+            android:padding="8dp"
+            android:textAlignment="center"
+            android:textColorHint="@color/MainThemeColor"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvRuaLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etCodigoPostal"
+            android:layout_centerHorizontal="true"
+            android:text="Rua"
+            android:textColor="@color/dark_grey"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etRua"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/etCodigoPostal"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:inputType="text"
+            android:maxWidth="300dp"
+            android:padding="8dp"
+            android:textAlignment="center"
+            android:textColorHint="@color/MainThemeColor"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvLocalidadeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etRua"
+            android:layout_centerHorizontal="true"
+            android:text="Localidade"
+            android:textColor="@color/dark_grey"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etLocalidade"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/etRua"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:inputType="text"
+            android:maxWidth="300dp"
+            android:padding="8dp"
+            android:textAlignment="center"
+            android:textColorHint="@color/MainThemeColor"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tvTelemovelLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etLocalidade"
+            android:layout_centerHorizontal="true"
+            android:text="Telemóvel"
+            android:textColor="@color/dark_grey"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etTelemovel"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/etLocalidade"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:inputType="text"
+            android:maxWidth="300dp"
+            android:padding="8dp"
+            android:textAlignment="center"
+            android:textColorHint="@color/MainThemeColor"
+            android:textSize="16sp" />
+
+
+        <Button
+            android:id="@+id/buttonProceedCheckout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:enabled="false"
+            android:text="@string/txt_efetuar_encomenda" />
+    </RelativeLayout>
+</LinearLayout>
