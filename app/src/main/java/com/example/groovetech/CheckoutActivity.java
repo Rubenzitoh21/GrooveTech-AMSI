@@ -86,8 +86,6 @@ public class CheckoutActivity extends AppCompatActivity implements PagamentosLis
                 // Passa o ID do método de pagamento selecionado para a variável selectedPagamentoID da classe
                 CheckoutActivity.this.selectedPagamentoID = selectedId;
                 String selectedMetodoPagamento = selectedPagamento.getMetodoPagamento();
-                Toast.makeText(getApplicationContext(), getString(R.string.metodo_pagamento_selecionado) + selectedMetodoPagamento,
-                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -112,8 +110,6 @@ public class CheckoutActivity extends AppCompatActivity implements PagamentosLis
                 int selectedId = selectedExpedicao.getId();
                 CheckoutActivity.this.selectedExpedicaoID = selectedId;
                 String selectedMetodoExpedicao = selectedExpedicao.getMetodoExpedicao();
-                Toast.makeText(getApplicationContext(), getString(R.string.metodo_expedicao_selecionado) + selectedMetodoExpedicao,
-                        Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -145,6 +141,7 @@ public class CheckoutActivity extends AppCompatActivity implements PagamentosLis
         binding.etRua.addTextChangedListener(formValidationWatcher);
         binding.etCodigoPostal.addTextChangedListener(formValidationWatcher);
         binding.etLocalidade.addTextChangedListener(formValidationWatcher);
+        binding.etTelemovel.addTextChangedListener(formValidationWatcher);
 
         // Perform initial validation when the activity starts
         validateForm();
@@ -226,6 +223,10 @@ public class CheckoutActivity extends AppCompatActivity implements PagamentosLis
         String phone = binding.etTelemovel.getText().toString().trim();
         if (!phone.isEmpty() && !PHONE_PATTERN.matcher(phone).matches()) {
             binding.etTelemovel.setError(getString(R.string.telemovel_invalido));
+            return false;
+        }
+        if (phone.isEmpty()) {
+            binding.etTelemovel.setError(getString(R.string.telemovel_obrigatorio));
             return false;
         }
         binding.etTelemovel.setError(null);

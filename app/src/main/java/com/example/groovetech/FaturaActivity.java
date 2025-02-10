@@ -31,10 +31,10 @@ public class FaturaActivity extends AppCompatActivity implements LinhasFaturasLi
     private LinhasFaturasAdaptador adapter;
     private Fatura fatura;
     private String metodoExpedicao, metodoPagamento;
-    private boolean isExpedicaoLoaded = false, isPagamentoLoaded = false;
-    private float totalIvaLinhas, subTotalLinhas;
-    private Perfil perfil;
     private Utilizador utilizador;
+    private Perfil perfil;
+    private boolean isExpedicaoLoaded = false, isPagamentoLoaded = false, isProfileLoaded = false;
+    private float totalIvaLinhas, subTotalLinhas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +69,12 @@ public class FaturaActivity extends AppCompatActivity implements LinhasFaturasLi
         binding.SubTotalValueTxt.setText(String.format("%.2f €", subTotalLinhas));
         binding.IvaTotalValueTxt.setText(String.format("%.2f €", totalIvaLinhas));
 
-        // Define os valores do utilizador e do perfil
+        // Define os valores do utilizador e do perfil na fatura
         binding.NomeApelidoTxt.setText(String.format("%s %s", perfil.getPrimeironome(), perfil.getApelido()));
         binding.RuaClienteTxt.setText(String.format("%s %s", perfil.getCodigopostal(), perfil.getRua()));
         binding.EmailClienteTxt.setText(utilizador.getEmail());
         binding.TelemovelClienteTxt.setText(perfil.getTelefone());
+
 
         // Define os valores dos métodos de expedição e pagamento
         binding.MetodoExpedicaoValueTxt.setText(metodoExpedicao != null ? metodoExpedicao : "Não Definido");
@@ -121,7 +122,7 @@ public class FaturaActivity extends AppCompatActivity implements LinhasFaturasLi
 
     private void updateUI() {
         // Atualiza a UI apenas quando os dados de expedição e pagamento estão carregados
-        if (isExpedicaoLoaded && isPagamentoLoaded) {
+        if (isExpedicaoLoaded && isPagamentoLoaded && isProfileLoaded) {
             fillLinhaFaturaUI();
         }
     }
@@ -131,9 +132,13 @@ public class FaturaActivity extends AppCompatActivity implements LinhasFaturasLi
         // Define os valores do perfil e do utilizador
         if (utilizadorAndPerfil == null) return;
 
-        utilizador = utilizadorAndPerfil.getUtilizador();
         perfil = utilizadorAndPerfil.getPerfil();
+        utilizador = utilizadorAndPerfil.getUtilizador();
 
+        isProfileLoaded = true;
+        updateUI();
+
+//
 
     }
 }

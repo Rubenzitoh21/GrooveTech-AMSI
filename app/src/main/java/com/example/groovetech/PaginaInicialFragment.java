@@ -80,12 +80,6 @@ public class PaginaInicialFragment extends Fragment implements HomeProdutosListe
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Singleton.getInstance(getContext()).getSearchProdutosAPI(requireContext(), query, PaginaInicialFragment.this);
-
-                String queryWithQuotes = "\"" + query + "\"";  // Adiciona aspas à variável query
-
-                // Mostra uma mensagem com os resultados da pesquisa
-                binding.tituloTxt.setText(getString(R.string.txt_mensagem_pesquisa, queryWithQuotes));
-
                 binding.searchView.clearFocus();
                 return true;
             }
@@ -96,6 +90,7 @@ public class PaginaInicialFragment extends Fragment implements HomeProdutosListe
                     // se o texto da pesquisa estiver vazio, mostra todos os produtos
                     Singleton.getInstance(getContext()).getAllProdutosAPI(requireContext().getApplicationContext(),
                             PaginaInicialFragment.this);
+                    binding.searchView.clearFocus();
                     binding.tituloTxt.setText(getString(R.string.txt_titulo_home));
                 } else {
                     binding.searchView.setVisibility(View.VISIBLE);
@@ -110,6 +105,13 @@ public class PaginaInicialFragment extends Fragment implements HomeProdutosListe
     public void onDestroyView() {
         super.onDestroyView();
         binding = null; // Evita fugas de memória anulando a binding
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        binding.searchView.clearFocus();
+
     }
 
     private String getUsername() {
@@ -135,13 +137,6 @@ public class PaginaInicialFragment extends Fragment implements HomeProdutosListe
         startActivity(intent);
 
     }
-
-    public void updateTituloTxt(String text) {
-        if (binding != null) {
-            binding.tituloTxt.setText(text);
-        }
-    }
-
 
     @Override
     public void onRefreshHomeProdutos(ArrayList<Produto> listaProdutos) {

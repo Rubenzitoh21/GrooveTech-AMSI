@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         Singleton.getInstance(getApplicationContext()).createCarrinhoAPI(this);
+        updateCartBadge();
 
         fragmentManager = getSupportFragmentManager();
 
@@ -34,12 +35,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        updateCartBadge();
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         updateCartBadge();
     }
+
 
     public void updateCartBadge() {
         BadgeDrawable badge = binding.bottomNavigationView.getOrCreateBadge(R.id.carrinho);
