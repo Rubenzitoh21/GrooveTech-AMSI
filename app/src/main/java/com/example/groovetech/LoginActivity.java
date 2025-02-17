@@ -115,17 +115,4 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         Intent intent = new Intent(this, DefinicoesActivity.class);
         startActivity(intent);
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Limpa os campos de texto quando a activity é retomada
-        if (binding.etUsername != null) {
-            binding.etUsername.setText(""); // Clear the username field
-        }
-        if (binding.etPassword != null) {
-            binding.etPassword.setText(""); // Clear the password field
-        }
-    }
 }
